@@ -381,8 +381,7 @@ export default function Resume() {
                 <div className="edu-school">Founder -- AI-powered L&amp;D tool suite (2024 -- present)</div>
               </div>
               <div className="edu-item">
-                <div className="edu-degree">Miss Auburn Scholarship Program</div>
-                <div className="edu-school">Volunteer judge trainer, Miss America tributary</div>
+                
               </div>
             </div>
 
