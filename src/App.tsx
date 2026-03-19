@@ -493,7 +493,7 @@ export default function App() {
             <div className="hero-content">
               <div className="hero-eyebrow">Senior Learning Experience Designer</div>
               <h1 className="hero-name">Trenity <span>Walker</span></h1>
-              <p className="hero-title">25+ Years of Instructional Design &amp; L&amp;D</p>
+              <p className="hero-title">20+ Years of Instructional Design &amp; L&amp;D</p>
               <p className="hero-bio">
                 I build learning experiences that actually change behavior. From AI-powered authoring
                 tools to award-winning Storyline courses, I bridge the gap between learning science
