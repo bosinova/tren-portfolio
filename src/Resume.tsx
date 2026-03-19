@@ -36,14 +36,12 @@ export default function Resume() {
         h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 800; line-height: 1.15; }
         a { color: var(--accent); text-decoration: none; }
 
-        /* ── Back link ── */
         .back-bar {
           background: var(--surface);
           border-bottom: 1px solid var(--border);
           padding: 12px 40px;
           display: flex;
           align-items: center;
-          gap: 8px;
         }
         .back-link {
           font-size: 0.82rem;
@@ -60,14 +58,12 @@ export default function Resume() {
         }
         .back-link:hover { color: var(--text); }
 
-        /* ── Page wrapper ── */
         .resume-page {
           max-width: 960px;
           margin: 0 auto;
           padding: 40px 40px 80px;
         }
 
-        /* ── Header ── */
         .resume-header {
           display: grid;
           grid-template-columns: 1fr auto;
@@ -77,35 +73,13 @@ export default function Resume() {
           padding-bottom: 32px;
           border-bottom: 1px solid var(--border);
         }
-        .resume-name {
-          font-size: 3rem;
-          letter-spacing: -0.03em;
-          margin-bottom: 4px;
-        }
+        .resume-name { font-size: 3rem; letter-spacing: -0.03em; margin-bottom: 4px; }
         .resume-name span { color: var(--accent); }
-        .resume-headline {
-          font-size: 1rem;
-          color: var(--muted);
-          font-weight: 400;
-          margin-bottom: 16px;
-          font-family: var(--font-body);
-        }
-        .resume-contact {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 16px;
-        }
-        .resume-contact a,
-        .resume-contact span {
-          font-size: 0.82rem;
-          color: var(--muted);
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-        }
+        .resume-headline { font-size: 1rem; color: var(--muted); font-weight: 400; margin-bottom: 16px; font-family: var(--font-body); }
+        .resume-contact { display: flex; flex-wrap: wrap; gap: 16px; }
+        .resume-contact a, .resume-contact span { font-size: 0.82rem; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
         .resume-contact a { color: var(--accent); }
 
-        /* Award box */
         .award-box {
           background: linear-gradient(135deg, rgba(245,166,35,0.1) 0%, rgba(245,166,35,0.04) 100%);
           border: 1px solid rgba(245,166,35,0.35);
@@ -115,17 +89,9 @@ export default function Resume() {
           min-width: 160px;
         }
         .award-trophy { font-size: 2rem; margin-bottom: 8px; line-height: 1; }
-        .award-name {
-          font-family: var(--font-head);
-          font-size: 0.85rem;
-          font-weight: 800;
-          color: var(--gold);
-          letter-spacing: 0.04em;
-          margin-bottom: 4px;
-        }
+        .award-name { font-family: var(--font-head); font-size: 0.85rem; font-weight: 800; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 4px; }
         .award-sub { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
 
-        /* ── Stats row ── */
         .stats-row {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -136,23 +102,10 @@ export default function Resume() {
           overflow: hidden;
           margin-bottom: 40px;
         }
-        .stat-box {
-          background: var(--surface);
-          padding: 20px 16px;
-          text-align: center;
-        }
-        .stat-num {
-          font-family: var(--font-head);
-          font-size: 1.8rem;
-          font-weight: 800;
-          color: var(--gold);
-          line-height: 1;
-          margin-bottom: 6px;
-          font-feature-settings: "tnum";
-        }
+        .stat-box { background: var(--surface); padding: 20px 16px; text-align: center; }
+        .stat-num { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 6px; font-feature-settings: "tnum"; }
         .stat-lbl { font-size: 0.75rem; color: var(--muted); line-height: 1.35; }
 
-        /* ── Two column body ── */
         .resume-body {
           display: grid;
           grid-template-columns: 1fr 340px;
@@ -160,7 +113,6 @@ export default function Resume() {
           align-items: start;
         }
 
-        /* ── Section labels ── */
         .section-label {
           display: inline-flex;
           align-items: center;
@@ -172,135 +124,37 @@ export default function Resume() {
           color: var(--accent);
           margin-bottom: 20px;
         }
-        .section-label::before {
-          content: '';
-          display: block;
-          width: 14px;
-          height: 2px;
-          background: var(--accent);
-        }
+        .section-label::before { content: ''; display: block; width: 14px; height: 2px; background: var(--accent); }
 
-        /* ── Timeline ── */
         .timeline { position: relative; }
-        .timeline-item {
-          position: relative;
-          padding-left: 24px;
-          padding-bottom: 32px;
-        }
-        .timeline-item::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 8px;
-          bottom: 0;
-          width: 1px;
-          background: var(--border-mid);
-        }
+        .timeline-item { position: relative; padding-left: 24px; padding-bottom: 32px; }
+        .timeline-item::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: var(--border-mid); }
         .timeline-item:last-child::before { display: none; }
-        .timeline-item::after {
-          content: '';
-          position: absolute;
-          left: -4px;
-          top: 7px;
-          width: 9px;
-          height: 9px;
-          border-radius: 50%;
-          background: var(--accent);
-          border: 2px solid var(--bg);
-        }
-        .tl-years {
-          font-size: 0.72rem;
-          font-weight: 600;
-          color: var(--accent);
-          letter-spacing: 0.06em;
-          margin-bottom: 3px;
-        }
-        .tl-title {
-          font-family: var(--font-head);
-          font-size: 0.95rem;
-          font-weight: 700;
-          color: var(--text);
-          margin-bottom: 1px;
-        }
-        .tl-org {
-          font-size: 0.8rem;
-          color: var(--muted);
-          margin-bottom: 8px;
-        }
-        .tl-bullets {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-        .tl-bullets li {
-          font-size: 0.82rem;
-          color: var(--muted);
-          padding-left: 12px;
-          position: relative;
-          line-height: 1.5;
-        }
-        .tl-bullets li::before {
-          content: '·';
-          position: absolute;
-          left: 0;
-          color: var(--accent);
-          font-weight: 700;
-        }
+        .timeline-item::after { content: ''; position: absolute; left: -4px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+        .tl-years { font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 3px; }
+        .tl-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 1px; }
+        .tl-org { font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; }
+        .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .tl-bullets li { font-size: 0.82rem; color: var(--muted); padding-left: 12px; position: relative; line-height: 1.5; }
+        .tl-bullets li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
-        /* ── Right column ── */
         .right-col { display: flex; flex-direction: column; gap: 36px; }
 
-        /* Skills */
-        .skills-section {}
         .skill-group { margin-bottom: 16px; }
-        .skill-group-label {
-          font-size: 0.72rem;
-          font-weight: 600;
-          color: var(--muted);
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          margin-bottom: 8px;
-        }
+        .skill-group-label { font-size: 0.72rem; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
         .skill-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-        .skill-chip {
-          font-size: 0.72rem;
-          font-weight: 500;
-          padding: 3px 10px;
-          border-radius: 999px;
-          background: var(--border);
-          color: var(--text);
-          border: 1px solid var(--border-mid);
-        }
+        .skill-chip { font-size: 0.72rem; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: var(--border); color: var(--text); border: 1px solid var(--border-mid); }
 
-        /* Education */
         .edu-item { margin-bottom: 16px; }
-        .edu-degree {
-          font-family: var(--font-head);
-          font-size: 0.88rem;
-          font-weight: 700;
-          color: var(--text);
-          margin-bottom: 2px;
-        }
+        .edu-degree { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
         .edu-school { font-size: 0.78rem; color: var(--muted); }
 
-        /* Download button */
         .download-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          background: var(--accent);
-          color: #fff;
-          border: none;
-          padding: 12px 24px;
-          border-radius: var(--radius);
-          font-family: var(--font-body);
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.2s, transform 0.15s;
-          width: 100%;
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          background: var(--accent); color: #fff; border: none;
+          padding: 12px 24px; border-radius: var(--radius);
+          font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+          cursor: pointer; transition: background 0.2s, transform 0.15s; width: 100%;
         }
         .download-btn:hover { background: #3a7de8; transform: translateY(-1px); }
 
@@ -319,34 +173,31 @@ export default function Resume() {
 
           body { background: #fff; color: #111827; font-size: 10pt; }
 
-          .back-bar, .download-btn, .print-hide { display: none !important; }
+          .back-bar { display: none !important; }
+          .download-btn { display: none !important; }
+          .print-hide { display: none !important; }
 
           .resume-page { padding: 0; max-width: 100%; }
-
           .resume-name { font-size: 26pt; }
           .stat-num { font-size: 16pt; }
 
+          .timeline-item { page-break-inside: avoid; }
           .timeline-item::after { background: #1a4f9c; border-color: #fff; }
           .timeline-item::before { background: #c8d0e4; }
 
-          .skill-chip {
-            background: #eef2fb;
-            color: #1a4f9c;
-            border-color: #c8d0e4;
-          }
-
-          .award-box {
-            background: #fef9f0;
-            border-color: #d97706;
-          }
-
+          .skill-chip { background: #eef2fb; color: #1a4f9c; border-color: #c8d0e4; }
+          .award-box { background: #fef9f0; border-color: #d97706; }
           .stats-row { background: #c8d0e4; }
           .stat-box { background: #f7f8fc; }
+
+          .right-col { gap: 20px; }
+          .edu-item { page-break-inside: avoid; margin-bottom: 8px; }
+          .skill-group { margin-bottom: 10px; }
+          .section-label { margin-bottom: 12px; }
         }
       `}</style>
 
-      {/* Back bar */}
-      <div className="back-bar print-hide">
+      <div className="back-bar">
         <button className="back-link" onClick={() => window.history.back()}>
           &#8592; Back to portfolio
         </button>
@@ -354,7 +205,6 @@ export default function Resume() {
 
       <div className="resume-page">
 
-        {/* Header */}
         <div className="resume-header">
           <div>
             <h1 className="resume-name">Trenity <span>Walker</span></h1>
@@ -372,7 +222,6 @@ export default function Resume() {
           </div>
         </div>
 
-        {/* Stats */}
         <div className="stats-row">
           {[
             { num: "20+", lbl: "Years Experience" },
@@ -387,10 +236,8 @@ export default function Resume() {
           ))}
         </div>
 
-        {/* Body */}
         <div className="resume-body">
 
-          {/* Left -- Timeline */}
           <div>
             <div className="section-label">Experience</div>
             <div className="timeline">
@@ -461,18 +308,14 @@ export default function Resume() {
             </div>
           </div>
 
-          {/* Right column */}
           <div className="right-col">
 
-            {/* Download button */}
             <button className="download-btn print-hide" onClick={handlePrint}>
               &#8681; Download / Print PDF
             </button>
 
-            {/* Skills */}
-            <div className="skills-section">
+            <div>
               <div className="section-label">Skills &amp; Tools</div>
-
               <div className="skill-group">
                 <div className="skill-group-label">Authoring</div>
                 <div className="skill-chips">
@@ -481,7 +324,6 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-
               <div className="skill-group">
                 <div className="skill-group-label">Design</div>
                 <div className="skill-chips">
@@ -490,7 +332,6 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-
               <div className="skill-group">
                 <div className="skill-group-label">Technology</div>
                 <div className="skill-chips">
@@ -499,7 +340,6 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-
               <div className="skill-group">
                 <div className="skill-group-label">LMS &amp; Delivery</div>
                 <div className="skill-chips">
@@ -508,7 +348,6 @@ export default function Resume() {
                   ))}
                 </div>
               </div>
-
               <div className="skill-group">
                 <div className="skill-group-label">Methodology</div>
                 <div className="skill-chips">
@@ -519,7 +358,6 @@ export default function Resume() {
               </div>
             </div>
 
-            {/* Education */}
             <div>
               <div className="section-label">Education</div>
               <div className="edu-item">
@@ -532,7 +370,6 @@ export default function Resume() {
               </div>
             </div>
 
-            {/* Awards */}
             <div>
               <div className="section-label">Recognition</div>
               <div className="edu-item">
@@ -544,7 +381,8 @@ export default function Resume() {
                 <div className="edu-school">Founder -- AI-powered L&amp;D tool suite (2024 -- present)</div>
               </div>
               <div className="edu-item">
-                
+                <div className="edu-degree">Miss Auburn Scholarship Program</div>
+                <div className="edu-school">Volunteer judge trainer, Miss America tributary</div>
               </div>
             </div>
 
