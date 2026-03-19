@@ -25,9 +25,9 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "AI-driven feedback logic with confidence-building scenarios and coaching recaps. Learner decisions drive branching paths and personalized responses.",
     tags: ["Storyline 360", "Scenarios", "AI Feedback", "UX"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Power%20Positioning/story.html",
     launchLabel: "Launch sample",
-    sampleUrl: "#",
+    sampleUrl: "https://docs.google.com/document/d/1AzYTUowcO12SaW_HKqEWHtaO_5o1OYpjCMUCETPuNEg/edit?usp=sharing",
     sampleLabel: "View sample responses",
   },
   {
@@ -37,7 +37,7 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "Guided performance support hub using interactive navigation, visited-state tracking, and conditional progression for frontline employees.",
     tags: ["Storyline 360", "Interaction Design", "UX"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Support%20Knowledge%20Hub/story.html",
     launchLabel: "Launch sample",
   },
   {
@@ -47,7 +47,7 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "Reflective learning experience using color-driven branching, progressive disclosure, and optional ambient audio to support focus and learner agency.",
     tags: ["Storyline 360", "Branching", "UX", "Visual Design"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Pantone%20Challenge/story.html",
     launchLabel: "Launch sample",
   },
   {
@@ -57,7 +57,7 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "Focused assessment showcasing knowledge checks, decision-based questions, and clear visuals to reinforce safety awareness.",
     tags: ["Storyline 360", "Assessment Design", "Feedback"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Home%20Safety%20Quiz/story.html",
     launchLabel: "Launch sample",
   },
   {
@@ -67,7 +67,7 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "Game-based knowledge reinforcement demonstrating how engagement and feedback mechanics support learning retention in a competitive format.",
     tags: ["Storyline 360", "Gamification", "Engagement"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Gym%20Facts/story.html",
     launchLabel: "Launch sample",
   },
   {
@@ -77,7 +77,7 @@ const workSamples: WorkItem[] = [
     category: "Articulate Storyline 360",
     description: "Interactive game-based experience transforming knowledge checks into a competitive board format with immediate feedback and visual progress cues.",
     tags: ["Storyline 360", "Game Mechanics", "Interaction Design"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Trivia%20Squares/story.html",
     launchLabel: "Launch sample",
   },
   {
@@ -87,7 +87,7 @@ const workSamples: WorkItem[] = [
     category: "Vyond / Microlearning",
     description: "Concise animated explainer using clear visuals and plain-language scenarios to reinforce safe email behaviors and reduce real-world risk.",
     tags: ["Vyond", "Microlearning", "Visual Storytelling"],
-    launchUrl: "#",
+    launchUrl: "https://storage.googleapis.com/portfolio-elearning-2024/Vyond%20Videos/Cybersecurity%20Basics%20%E2%80%93%20%E2%80%9CAvoiding%20Phishing%20Emails%E2%80%9D/Cybersecurity%20Basics%20%E2%80%93%20%E2%80%9CAvoiding%20Phishing%20Emails%E2%80%9D-720p-250911.mp4",
     launchLabel: "Launch sample",
   },
 ];
