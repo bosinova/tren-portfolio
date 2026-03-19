@@ -272,7 +272,6 @@ export default function App() {
         a:hover { text-decoration: underline; }
         .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
-        /* Nav */
         nav {
           position: sticky; top: 0; z-index: 100;
           height: var(--nav-h);
@@ -285,7 +284,6 @@ export default function App() {
         .nav-logo { font-family: var(--font-head); font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
         .nav-logo span { color: var(--accent); }
 
-        /* Hero */
         #hero {
           min-height: calc(100vh - var(--nav-h));
           display: flex; align-items: center; padding: 80px 0;
@@ -299,12 +297,8 @@ export default function App() {
           pointer-events: none;
         }
         .hero-grid {
-          position: relative;
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 60px;
-          align-items: center;
-          width: 100%;
+          position: relative; display: grid;
+          grid-template-columns: 1fr auto; gap: 60px; align-items: center; width: 100%;
         }
         .hero-content { position: relative; }
         .hero-eyebrow {
@@ -341,66 +335,37 @@ export default function App() {
         }
         .btn-secondary:hover { background: #343a52; transform: translateY(-1px); text-decoration: none; }
 
-        /* Stats bar */
         .stats-wrap { background: var(--surface); border-bottom: 1px solid var(--border); }
         .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-left: 1px solid var(--border-mid); }
         .stat-cell { padding: 28px 24px; text-align: center; border-right: 1px solid var(--border-mid); }
         .stat-value { font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 8px; font-feature-settings: "tnum"; }
         .stat-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
 
-        /* Main tab bar -- gap above, centered tabs */
         .main-tab-bar {
-          background: var(--surface);
-          border-bottom: 1px solid var(--border);
-          position: sticky;
-          top: var(--nav-h);
-          z-index: 90;
-          padding-top: 16px;
+          background: var(--surface); border-bottom: 1px solid var(--border);
+          position: sticky; top: var(--nav-h); z-index: 90; padding-top: 16px;
         }
         .main-tab-bar-inner {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          max-width: var(--max-w);
-          margin: 0 auto;
-          padding: 0 24px;
-          width: 100%;
+          display: flex; flex-wrap: wrap; justify-content: center;
+          max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%;
         }
         .main-tab {
-          background: none;
-          border: none;
-          border-bottom: 3px solid transparent;
-          padding: 14px 28px;
-          cursor: pointer;
-          color: var(--muted);
-          font-family: var(--font-body);
-          font-size: 0.95rem;
-          font-weight: 500;
-          transition: color 0.15s, border-color 0.15s;
-          white-space: nowrap;
-          margin-bottom: -1px;
-          display: inline-flex;
-          flex-direction: column;
-          align-items: center;
+          background: none; border: none; border-bottom: 3px solid transparent;
+          padding: 14px 28px; cursor: pointer; color: var(--muted);
+          font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
+          transition: color 0.15s, border-color 0.15s; white-space: nowrap;
+          margin-bottom: -1px; display: inline-flex; flex-direction: column; align-items: center;
         }
         .main-tab::after {
-          content: attr(data-label);
-          font-weight: 700;
-          font-size: 0.95rem;
-          height: 0;
-          overflow: hidden;
-          visibility: hidden;
-          pointer-events: none;
-          white-space: nowrap;
-          display: block;
+          content: attr(data-label); font-weight: 700; font-size: 0.95rem;
+          height: 0; overflow: hidden; visibility: hidden;
+          pointer-events: none; white-space: nowrap; display: block;
         }
         .main-tab:hover:not(.main-tab-on) { color: var(--text); }
         .main-tab-on { color: var(--text); font-weight: 700; border-bottom: 3px solid var(--accent); }
 
-        /* Tab content */
         .tab-content { padding: 56px 0; min-height: 480px; }
 
-        /* Project rows */
         .project-list { display: flex; flex-direction: column; }
         .project-row {
           display: flex; gap: 20px; align-items: flex-start;
@@ -408,12 +373,9 @@ export default function App() {
         }
         .project-row:first-child { border-top: 1px solid var(--border); }
         .project-icon {
-          font-size: 1.8rem; line-height: 1;
-          width: 52px; height: 52px;
+          font-size: 1.8rem; line-height: 1; width: 52px; height: 52px;
           background: var(--surface); border: 1px solid var(--border);
-          border-radius: var(--radius);
-          display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
+          border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
         }
         .project-main { flex: 1; min-width: 0; }
         .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
@@ -426,7 +388,6 @@ export default function App() {
         .project-chips { display: flex; flex-wrap: wrap; gap: 6px; }
         .chip { font-size: 0.7rem; font-weight: 500; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); border: 1px solid var(--border-mid); }
 
-        /* BH callout */
         .bh-callout {
           border: 1px solid rgba(245,166,35,0.3); border-radius: 14px;
           background: linear-gradient(135deg, rgba(245,166,35,0.07) 0%, rgba(245,166,35,0.02) 100%);
@@ -437,7 +398,6 @@ export default function App() {
         .bh-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; max-width: 680px; }
         .bh-desc strong { color: var(--text); font-weight: 600; }
 
-        /* Skills */
         .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
         .skill-pill {
           padding: 8px 18px; border: 1px solid var(--border); border-radius: 100px;
@@ -445,16 +405,23 @@ export default function App() {
           cursor: default; user-select: none;
         }
 
-        /* About */
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
         .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.975rem; }
-        .about-stats { display: flex; flex-direction: column; gap: 14px; }
+        .about-right { display: flex; flex-direction: column; gap: 14px; }
         .about-stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; }
         .about-stat-number { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 4px; font-feature-settings: "tnum"; }
         .about-stat-label { font-size: 0.82rem; color: var(--muted); }
+        .resume-btn {
+          display: block; width: 100%; text-align: center;
+          background: var(--accent); color: #fff;
+          padding: 12px 24px; border-radius: var(--radius);
+          font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+          transition: background 0.2s, transform 0.15s; margin-top: 4px;
+        }
+        .resume-btn:hover { background: #3a7de8; transform: translateY(-1px); text-decoration: none; }
+
         .tab-heading { font-size: clamp(1.6rem,3vw,2.2rem); letter-spacing: -0.02em; margin-bottom: 32px; }
 
-        /* Contact */
         #contact { padding: 80px 0; border-top: 1px solid var(--border); }
         .contact-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
@@ -484,7 +451,6 @@ export default function App() {
         .form-feedback.success { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
         .form-feedback.error { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
 
-        /* Footer */
         footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 0; }
         .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
         .footer-logo { font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
@@ -494,7 +460,6 @@ export default function App() {
         .footer-links a { font-size: 0.85rem; color: var(--muted); transition: color 0.2s; }
         .footer-links a:hover { color: var(--text); text-decoration: none; }
 
-        /* Responsive */
         @media (max-width: 860px) {
           .hero-grid { grid-template-columns: 1fr; }
           .hero-photo-wrap { width: 180px; height: 180px; margin: 0 auto; }
@@ -516,14 +481,12 @@ export default function App() {
         }
       `}</style>
 
-      {/* Nav */}
       <nav>
         <div className="nav-inner">
           <span className="nav-logo">Trenity<span>.</span>Walker</span>
         </div>
       </nav>
 
-      {/* Hero */}
       <section id="hero">
         <div className="container">
           <div className="hero-grid">
@@ -548,7 +511,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Stats bar */}
       <div className="stats-wrap" id="main-tabs">
         <div className="container" style={{ padding: 0 }}>
           <div className="stats-bar">
@@ -562,7 +524,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main tab bar */}
       <div className="main-tab-bar">
         <div className="main-tab-bar-inner">
           {mainTabs.map((tab) => (
@@ -580,7 +541,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Tab content */}
       <div
         className="tab-content"
         style={{ background: activeTab === "skills" || activeTab === "about" ? "var(--surface)" : "var(--bg)" }}
@@ -644,7 +604,7 @@ export default function App() {
                     with the Miss Auburn Scholarship Program and an infrared photography enthusiast.
                   </p>
                 </div>
-                <div className="about-stats">
+                <div className="about-right">
                   <div className="about-stat-card">
                     <div className="about-stat-number">20+</div>
                     <div className="about-stat-label">Years of instructional design experience</div>
@@ -657,6 +617,9 @@ export default function App() {
                     <div className="about-stat-number">28K+</div>
                     <div className="about-stat-label">Employees trained across enterprise programs</div>
                   </div>
+                  <a href="/resume" className="resume-btn">
+                    View Full Resume &#8599;
+                  </a>
                 </div>
               </div>
             </>
@@ -665,7 +628,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Contact */}
       <section id="contact">
         <div className="container">
           <div className="contact-eyebrow">Contact</div>
@@ -694,7 +656,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer>
         <div className="container">
           <div className="footer-inner">
