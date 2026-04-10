@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface WorkItem {
   id: string;
   title: string;
@@ -14,8 +12,6 @@ interface WorkItem {
   sampleUrl?: string;
   sampleLabel?: string;
 }
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const workSamples: WorkItem[] = [
   {
@@ -137,7 +133,53 @@ const mainTabs = [
   { id: "about", label: "About Me" },
 ];
 
-// ─── ContactForm ──────────────────────────────────────────────────────────────
+const services = [
+  {
+    icon: "⚡",
+    title: "Starter Module",
+    price: "$750",
+    description: "One polished Storyline or Rise module up to 20 minutes. Includes storyboard, development, and two rounds of revisions. SCORM-ready delivery.",
+    tags: ["Storyline 360", "Rise 360", "SCORM"],
+    featured: false,
+  },
+  {
+    icon: "🎓",
+    title: "Full Course Build",
+    price: "$2,500",
+    description: "Up to four modules from kickoff through final delivery. Includes needs analysis, storyboarding, development, and LMS-ready package.",
+    tags: ["Multi-Module", "Storyboard", "LMS-Ready"],
+    featured: true,
+  },
+  {
+    icon: "🤖",
+    title: "AI-Powered Sprint",
+    price: "From $4,500",
+    description: "Custom scope with AI-integrated design and rapid turnaround. Ideal for teams that need enterprise-quality work built at startup speed.",
+    tags: ["AI Integration", "Custom Scope", "Rapid Delivery"],
+    featured: false,
+  },
+];
+
+const testimonials = [
+  {
+    quote: "Tren is a true innovation powerhouse. His speed and proficiency with tools like Storyline and Vyond are unmatched -- I've seen him turn concepts into reality faster than most can storyboard. Beyond his technical skills, Tren is a strategic partner who saved our company significant time and money by successfully integrating AI into our onboarding programs. He is a forward-thinking problem solver who brings fun, gamification, and technical precision to every project. I highly recommend him for any senior L&D role.",
+    name: "Adam Fosnaugh",
+    title: "Award-Winning Senior Instructional Designer",
+    date: "January 2026",
+  },
+  {
+    quote: "It is easy to recommend Tren Walker because he is one of the most outstanding instructional designers and learning technology experts I have ever had the pleasure of working with. It has been my pleasure and privilege to be Tren's leader for over five years. In that time, I have seen Tren take on innumerable projects across many work groups, supporting different kinds of learners, and creating content in a wide variety of modalities. Tren is an absolute master of applying technology to learning experiences in creative and innovative ways. He is a go-to resource for others looking to leverage e-learning tools in unique and impactful ways. Tren has my absolute endorsement and recommendation. He is an asset, and any organization looking for exceptional instructional design and learning technology talent will have a hard time finding better than Tren.",
+    name: "Charles Palmer",
+    title: "L&D Thought Leader",
+    date: "June 2024 · Direct Manager",
+  },
+  {
+    quote: "I have worked on several projects with Tren over the last couple years and he is simply Awesome! He can create great trainings out of very little information and knows exactly the right questions to ask to get the project done right.",
+    name: "Brandon Pahl, PMP",
+    title: "Project/Program Management Professional",
+    date: "November 2018",
+  },
+];
 
 function ContactForm() {
   const [name, setName] = useState("");
@@ -188,8 +230,6 @@ function ContactForm() {
   );
 }
 
-// ─── ProjectRow ───────────────────────────────────────────────────────────────
-
 function ProjectRow({ item }: { item: WorkItem }) {
   return (
     <div className="project-row">
@@ -202,22 +242,12 @@ function ProjectRow({ item }: { item: WorkItem }) {
           </div>
           <div className="project-links">
             {item.launchUrl && (
-              <a
-                href={item.launchUrl}
-                target={item.launchUrl.startsWith("http") ? "_blank" : undefined}
-                rel={item.launchUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="project-link"
-              >
+              <a href={item.launchUrl} target="_blank" rel="noopener noreferrer" className="project-link">
                 {item.launchLabel ?? "Launch"} &#8599;
               </a>
             )}
             {item.sampleUrl && (
-              <a
-                href={item.sampleUrl}
-                target={item.sampleUrl.startsWith("http") ? "_blank" : undefined}
-                rel={item.sampleUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="project-link"
-              >
+              <a href={item.sampleUrl} target="_blank" rel="noopener noreferrer" className="project-link">
                 {item.sampleLabel ?? "View sample"} &#8599;
               </a>
             )}
@@ -232,10 +262,9 @@ function ProjectRow({ item }: { item: WorkItem }) {
   );
 }
 
-// ─── App ──────────────────────────────────────────────────────────────────────
-
 export default function App() {
   const [activeTab, setActiveTab] = useState("samples");
+  const [showPricing, setShowPricing] = useState(false);
 
   function jumpToTabs(tab: string) {
     setActiveTab(tab);
@@ -246,137 +275,78 @@ export default function App() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
-          --bg:         #0d0f14;
-          --surface:    #13161e;
-          --border:     #1e2330;
-          --border-mid: #2a3045;
-          --text:       #e8eaf0;
-          --muted:      #7a8099;
-          --accent:     #4f8ef7;
-          --gold:       #F5A623;
-          --radius:     10px;
-          --font-head:  'Plus Jakarta Sans', sans-serif;
-          --font-body:  'DM Sans', sans-serif;
-          --max-w:      1100px;
-          --nav-h:      64px;
+          --bg: #0d0f14; --surface: #13161e; --border: #1e2330; --border-mid: #2a3045;
+          --text: #e8eaf0; --muted: #7a8099; --accent: #4f8ef7; --gold: #F5A623;
+          --radius: 10px; --font-head: 'Plus Jakarta Sans', sans-serif;
+          --font-body: 'DM Sans', sans-serif; --max-w: 1100px; --nav-h: 64px;
         }
-
         html { scroll-behavior: smooth; }
         body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
         h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 800; line-height: 1.15; }
         a { color: var(--accent); text-decoration: none; }
         a:hover { text-decoration: underline; }
         .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
-
-        nav {
-          position: sticky; top: 0; z-index: 100;
-          height: var(--nav-h);
-          background: rgba(13,15,20,0.9);
-          backdrop-filter: blur(12px);
-          border-bottom: 1px solid var(--border);
-          display: flex; align-items: center;
-        }
+        nav { position: sticky; top: 0; z-index: 100; height: var(--nav-h); background: rgba(13,15,20,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
         .nav-logo { font-family: var(--font-head); font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
         .nav-logo span { color: var(--accent); }
-
-        #hero {
-          min-height: calc(100vh - var(--nav-h));
-          display: flex; align-items: center; padding: 80px 0;
-          position: relative; overflow: hidden;
-        }
-        #hero::before {
-          content: ''; position: absolute; inset: 0;
-          background:
-            radial-gradient(ellipse 60% 50% at 80% 30%, rgba(79,142,247,0.08) 0%, transparent 70%),
-            radial-gradient(ellipse 40% 40% at 20% 70%, rgba(167,139,250,0.06) 0%, transparent 60%);
-          pointer-events: none;
-        }
-        .hero-grid {
-          position: relative; display: grid;
-          grid-template-columns: 1fr auto; gap: 60px; align-items: center; width: 100%;
-        }
+        #hero { min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; padding: 80px 0; position: relative; overflow: hidden; }
+        #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(79,142,247,0.08) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 70%, rgba(167,139,250,0.06) 0%, transparent 60%); pointer-events: none; }
+        .hero-grid { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; width: 100%; }
         .hero-content { position: relative; }
-        .hero-eyebrow {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
-          text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
-        }
+        .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
         .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent); }
         h1.hero-name { font-size: clamp(2.8rem, 6vw, 5rem); letter-spacing: -0.03em; margin-bottom: 8px; }
         h1.hero-name span { color: var(--accent); }
         .hero-title { font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 400; color: var(--muted); margin-bottom: 28px; font-family: var(--font-body); }
         .hero-bio { max-width: 560px; color: var(--muted); font-size: 1.05rem; margin-bottom: 40px; }
         .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-        .hero-photo-wrap {
-          width: 280px; height: 280px; border-radius: 50%;
-          overflow: hidden; border: 3px solid var(--border-mid);
-          flex-shrink: 0; position: relative; z-index: 1;
-        }
+        .hero-photo-wrap { width: 280px; height: 280px; border-radius: 50%; overflow: hidden; border: 3px solid var(--border-mid); flex-shrink: 0; position: relative; z-index: 1; }
         .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-
-        .btn-primary {
-          background: var(--accent); color: #fff; border: none;
-          padding: 12px 26px; border-radius: var(--radius);
-          font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
-          cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block;
-        }
+        .btn-primary { background: var(--accent); color: #fff; border: none; padding: 12px 26px; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
         .btn-primary:hover { background: #3a7de8; transform: translateY(-1px); text-decoration: none; }
         .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .btn-secondary {
-          background: var(--border-mid); color: var(--text); border: none;
-          padding: 12px 26px; border-radius: var(--radius);
-          font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
-          cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block;
-        }
+        .btn-secondary { background: var(--border-mid); color: var(--text); border: none; padding: 12px 26px; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
         .btn-secondary:hover { background: #343a52; transform: translateY(-1px); text-decoration: none; }
-
         .stats-wrap { background: var(--surface); border-bottom: 1px solid var(--border); }
         .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); border-left: 1px solid var(--border-mid); }
         .stat-cell { padding: 28px 24px; text-align: center; border-right: 1px solid var(--border-mid); }
-        .stat-value { font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 8px; font-feature-settings: "tnum"; }
+        .stat-value { font-family: var(--font-head); font-size: 2.2rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 8px; }
         .stat-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
-
-        .main-tab-bar {
-          background: var(--surface); border-bottom: 1px solid var(--border);
-          position: sticky; top: var(--nav-h); z-index: 90; padding-top: 16px;
-        }
-        .main-tab-bar-inner {
-          display: flex; flex-wrap: wrap; justify-content: center;
-          max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%;
-        }
-        .main-tab {
-          background: none; border: none; border-bottom: 3px solid transparent;
-          padding: 14px 28px; cursor: pointer; color: var(--muted);
-          font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
-          transition: color 0.15s, border-color 0.15s; white-space: nowrap;
-          margin-bottom: -1px; display: inline-flex; flex-direction: column; align-items: center;
-        }
-        .main-tab::after {
-          content: attr(data-label); font-weight: 700; font-size: 0.95rem;
-          height: 0; overflow: hidden; visibility: hidden;
-          pointer-events: none; white-space: nowrap; display: block;
-        }
+        .work-with-me { background: var(--bg); border-bottom: 1px solid var(--border); padding: 64px 0; position: relative; }
+        .work-with-me::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,142,247,0.04) 0%, transparent 70%); pointer-events: none; }
+        .wwm-header { text-align: center; margin-bottom: 48px; }
+        .wwm-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+        .wwm-eyebrow::before { content: ''; display: block; width: 16px; height: 2px; background: var(--accent); }
+        .wwm-eyebrow::after { content: ''; display: block; width: 16px; height: 2px; background: var(--accent); }
+        .wwm-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); letter-spacing: -0.02em; margin-bottom: 12px; }
+        .wwm-sub { color: var(--muted); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+        .wwm-note { color: var(--muted); font-size: 0.875rem; max-width: 520px; margin: 24px auto 0; text-align: center; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .service-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; position: relative; transition: border-color 0.2s, transform 0.2s; }
+        .service-card:hover { border-color: var(--border-mid); transform: translateY(-2px); }
+        .service-card.featured { border-color: rgba(79,142,247,0.4); background: linear-gradient(135deg, rgba(79,142,247,0.06) 0%, var(--surface) 100%); }
+        .service-card.featured::before { content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 12px; border-radius: 999px; }
+        .service-icon { font-size: 1.6rem; line-height: 1; }
+        .service-title { font-family: var(--font-head); font-size: 1.05rem; font-weight: 800; color: var(--text); }
+        .service-price { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--gold); line-height: 1; }
+        .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex: 1; }
+        .service-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .service-cta { display: block; text-align: center; background: var(--accent); color: #fff; padding: 10px 20px; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; transition: background 0.2s, transform 0.15s; margin-top: 4px; }
+        .service-cta:hover { background: #3a7de8; transform: translateY(-1px); text-decoration: none; }
+        .main-tab-bar { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: var(--nav-h); z-index: 90; padding-top: 16px; }
+        .main-tab-bar-inner { display: flex; flex-wrap: wrap; justify-content: center; max-width: var(--max-w); margin: 0 auto; padding: 0 24px; width: 100%; }
+        .main-tab { background: none; border: none; border-bottom: 3px solid transparent; padding: 14px 28px; cursor: pointer; color: var(--muted); font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; transition: color 0.15s, border-color 0.15s; white-space: nowrap; margin-bottom: -1px; display: inline-flex; flex-direction: column; align-items: center; }
+        .main-tab::after { content: attr(data-label); font-weight: 700; font-size: 0.95rem; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; white-space: nowrap; display: block; }
         .main-tab:hover:not(.main-tab-on) { color: var(--text); }
         .main-tab-on { color: var(--text); font-weight: 700; border-bottom: 3px solid var(--accent); }
-
         .tab-content { padding: 56px 0; min-height: 480px; }
-
         .project-list { display: flex; flex-direction: column; }
-        .project-row {
-          display: flex; gap: 20px; align-items: flex-start;
-          padding: 24px 0; border-bottom: 1px solid var(--border);
-        }
+        .project-row { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
         .project-row:first-child { border-top: 1px solid var(--border); }
-        .project-icon {
-          font-size: 1.8rem; line-height: 1; width: 52px; height: 52px;
-          background: var(--surface); border: 1px solid var(--border);
-          border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        }
+        .project-icon { font-size: 1.8rem; line-height: 1; width: 52px; height: 52px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .project-main { flex: 1; min-width: 0; }
         .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
         .project-title { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
@@ -387,47 +357,35 @@ export default function App() {
         .project-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
         .project-chips { display: flex; flex-wrap: wrap; gap: 6px; }
         .chip { font-size: 0.7rem; font-weight: 500; padding: 2px 9px; border-radius: 999px; background: var(--border); color: var(--muted); border: 1px solid var(--border-mid); }
-
-        .bh-callout {
-          border: 1px solid rgba(245,166,35,0.3); border-radius: 14px;
-          background: linear-gradient(135deg, rgba(245,166,35,0.07) 0%, rgba(245,166,35,0.02) 100%);
-          padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-top: 44px;
-        }
+        .bh-callout { border: 1px solid rgba(245,166,35,0.3); border-radius: 14px; background: linear-gradient(135deg, rgba(245,166,35,0.07) 0%, rgba(245,166,35,0.02) 100%); padding: 24px 28px; display: flex; align-items: center; gap: 20px; margin-top: 44px; }
         .bh-trophy { font-size: 2.2rem; flex-shrink: 0; line-height: 1; }
         .bh-label { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
         .bh-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; max-width: 680px; }
         .bh-desc strong { color: var(--text); font-weight: 600; }
-
         .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        .skill-pill {
-          padding: 8px 18px; border: 1px solid var(--border); border-radius: 100px;
-          font-size: 0.875rem; color: var(--muted); background: var(--bg);
-          cursor: default; user-select: none;
-        }
-
+        .skill-pill { padding: 8px 18px; border: 1px solid var(--border); border-radius: 100px; font-size: 0.875rem; color: var(--muted); background: var(--bg); cursor: default; user-select: none; }
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
         .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.975rem; }
         .about-right { display: flex; flex-direction: column; gap: 14px; }
         .about-stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; }
-        .about-stat-number { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 4px; font-feature-settings: "tnum"; }
+        .about-stat-number { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 4px; }
         .about-stat-label { font-size: 0.82rem; color: var(--muted); }
-        .resume-btn {
-          display: block; width: 100%; text-align: center;
-          background: var(--accent); color: #fff;
-          padding: 12px 24px; border-radius: var(--radius);
-          font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
-          transition: background 0.2s, transform 0.15s; margin-top: 4px;
-        }
+        .resume-btn { display: block; width: 100%; text-align: center; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; transition: background 0.2s, transform 0.15s; margin-top: 4px; }
         .resume-btn:hover { background: #3a7de8; transform: translateY(-1px); text-decoration: none; }
-
+        .testimonials-section { margin-top: 56px; }
+        .testimonials-heading { font-size: clamp(1.3rem, 2.5vw, 1.7rem); letter-spacing: -0.02em; margin-bottom: 28px; }
+        .testimonials-grid { display: flex; flex-direction: column; gap: 20px; }
+        .testimonial-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 28px; position: relative; }
+        .testimonial-card::before { content: '"'; position: absolute; top: 16px; left: 24px; font-family: var(--font-head); font-size: 4rem; line-height: 1; color: var(--accent); opacity: 0.2; pointer-events: none; }
+        .testimonial-quote { font-size: 0.925rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; padding-top: 8px; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-initials { width: 40px; height: 40px; border-radius: 50%; background: var(--border-mid); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-size: 0.8rem; font-weight: 800; color: var(--accent); flex-shrink: 0; }
+        .testimonial-name { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+        .testimonial-meta { font-size: 0.75rem; color: var(--muted); }
+        .linkedin-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.7rem; font-weight: 600; color: var(--accent); margin-top: 4px; opacity: 0.8; }
         .tab-heading { font-size: clamp(1.6rem,3vw,2.2rem); letter-spacing: -0.02em; margin-bottom: 32px; }
-
         #contact { padding: 80px 0; border-top: 1px solid var(--border); }
-        .contact-eyebrow {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
-          text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-        }
+        .contact-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
         .contact-eyebrow::before { content: ''; display: block; width: 16px; height: 2px; background: var(--accent); }
         h2.contact-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); letter-spacing: -0.02em; margin-bottom: 10px; }
         .contact-sub { color: var(--muted); max-width: 520px; font-size: 1rem; margin-bottom: 48px; }
@@ -440,17 +398,12 @@ export default function App() {
         .contact-form { display: flex; flex-direction: column; gap: 18px; }
         .form-row { display: flex; flex-direction: column; gap: 6px; }
         .form-row label { font-size: 0.75rem; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
-        .form-row input, .form-row textarea {
-          background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-          color: var(--text); font-family: var(--font-body); font-size: 0.95rem;
-          padding: 11px 14px; outline: none; transition: border-color 0.2s; resize: vertical;
-        }
+        .form-row input, .form-row textarea { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font-body); font-size: 0.95rem; padding: 11px 14px; outline: none; transition: border-color 0.2s; resize: vertical; }
         .form-row input:focus, .form-row textarea:focus { border-color: var(--accent); }
         .form-row input::placeholder, .form-row textarea::placeholder { color: var(--muted); opacity: 0.7; }
         .form-feedback { font-size: 0.875rem; padding: 10px 14px; border-radius: var(--radius); }
         .form-feedback.success { background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
         .form-feedback.error { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
-
         footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px 0; }
         .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
         .footer-logo { font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; }
@@ -459,26 +412,9 @@ export default function App() {
         .footer-links { display: flex; gap: 20px; }
         .footer-links a { font-size: 0.85rem; color: var(--muted); transition: color 0.2s; }
         .footer-links a:hover { color: var(--text); text-decoration: none; }
-
-        @media (max-width: 860px) {
-          .hero-grid { grid-template-columns: 1fr; }
-          .hero-photo-wrap { width: 180px; height: 180px; margin: 0 auto; }
-        }
-        @media (max-width: 780px) {
-          .stats-bar { grid-template-columns: repeat(2, 1fr); }
-          .stat-cell:nth-child(2) { border-right: none; }
-          .stat-cell:nth-child(3) { border-top: 1px solid var(--border-mid); }
-          .about-grid { grid-template-columns: 1fr; gap: 36px; }
-          .contact-grid { grid-template-columns: 1fr; gap: 36px; }
-          .bh-callout { flex-direction: column; gap: 12px; }
-          .main-tab { padding: 14px 16px; font-size: 0.85rem; }
-          .project-top { flex-direction: column; gap: 8px; }
-        }
-        @media (max-width: 600px) {
-          .hero-ctas { flex-direction: column; }
-          .main-tab { padding: 12px 12px; font-size: 0.8rem; }
-          .project-icon { width: 40px; height: 40px; font-size: 1.4rem; }
-        }
+        @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } .hero-photo-wrap { width: 180px; height: 180px; margin: 0 auto; } .services-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 780px) { .stats-bar { grid-template-columns: repeat(2, 1fr); } .stat-cell:nth-child(2) { border-right: none; } .stat-cell:nth-child(3) { border-top: 1px solid var(--border-mid); } .about-grid { grid-template-columns: 1fr; gap: 36px; } .contact-grid { grid-template-columns: 1fr; gap: 36px; } .bh-callout { flex-direction: column; gap: 12px; } .main-tab { padding: 14px 16px; font-size: 0.85rem; } .project-top { flex-direction: column; gap: 8px; } }
+        @media (max-width: 600px) { .hero-ctas { flex-direction: column; } .main-tab { padding: 12px 12px; font-size: 0.8rem; } .project-icon { width: 40px; height: 40px; font-size: 1.4rem; } }
       `}</style>
 
       <nav>
@@ -523,6 +459,48 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      <section className="work-with-me">
+        <div className="container">
+          <div className="wwm-header">
+            <div className="wwm-eyebrow">Currently Available</div>
+            <h2 className="wwm-title">Work With Me</h2>
+            <p className="wwm-sub">Available for freelance projects, contract engagements, and full-time roles.</p>
+            <button
+              className="btn-secondary"
+              style={{ margin: "16px auto 0", display: "block" }}
+              onClick={() => setShowPricing(!showPricing)}
+            >
+              {showPricing ? "Hide Pricing" : "See Pricing"}
+            </button>
+          </div>
+          {showPricing && (
+            <div>
+              <div className="services-grid">
+                {services.map((svc) => (
+                  <div key={svc.title} className={`service-card${svc.featured ? " featured" : ""}`}>
+                    <div className="service-icon">{svc.icon}</div>
+                    <div className="service-title">{svc.title}</div>
+                    <div className="service-price">{svc.price}</div>
+                    <p className="service-desc">{svc.description}</p>
+                    <div className="service-chips">
+                      {svc.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
+                    </div>
+                    
+                    <a href="#contact"
+                      className="service-cta"
+                      onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                    >
+                      Get Started ↗
+                    </a>
+                  </div>
+                ))}
+              </div>
+              <p className="wwm-note">Also open to larger scopes, ongoing retainers, and custom engagements. Let's talk.</p>
+            </div>
+          )}
+        </div>
+      </section>
 
       <div className="main-tab-bar">
         <div className="main-tab-bar-inner">
@@ -593,10 +571,10 @@ export default function App() {
                     measurable results.
                   </p>
                   <p>
-                    Currently contracting through Experis for Verizon while building out Prism Learning
-                    Design, my micro-studio focused on AI-powered L&amp;D tools. My recent work spans
-                    enterprise compliance training, AI-assisted coaching simulations, and authoring
-                    tools built on the Claude API.
+                    I'm currently available for freelance projects, contract engagements, and full-time
+                    roles. My recent work spans enterprise compliance training, AI-assisted coaching
+                    simulations, and authoring tools built on the Claude API through Prism Learning
+                    Design, my micro-studio focused on AI-powered L&amp;D tools.
                   </p>
                   <p>
                     I hold a BEd in Instructional Design from the University of Arizona and have been
@@ -617,9 +595,29 @@ export default function App() {
                     <div className="about-stat-number">28K+</div>
                     <div className="about-stat-label">Employees trained across enterprise programs</div>
                   </div>
-                  <a href="/resume" className="resume-btn">
-                    View Full Resume &#8599;
-                  </a>
+                  <a href="/resume" className="resume-btn">View Full Resume &#8599;</a>
+                </div>
+              </div>
+              <div className="testimonials-section">
+                <h3 className="testimonials-heading">What People Say</h3>
+                <div className="testimonials-grid">
+                  {testimonials.map((t) => {
+                    const parts = t.name.split(" ");
+                    const initials = (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+                    return (
+                      <div key={t.name} className="testimonial-card">
+                        <p className="testimonial-quote">{t.quote}</p>
+                        <div className="testimonial-author">
+                          <div className="testimonial-initials">{initials}</div>
+                          <div>
+                            <div className="testimonial-name">{t.name}</div>
+                            <div className="testimonial-meta">{t.title} &middot; {t.date}</div>
+                            <div className="linkedin-badge">&#128279; via LinkedIn</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </>
@@ -633,14 +631,14 @@ export default function App() {
           <div className="contact-eyebrow">Contact</div>
           <h2 className="contact-title">Get In Touch</h2>
           <p className="contact-sub">
-            Open to senior L&amp;D roles, consulting projects, and collaborations in tech,
+            Available for freelance projects, contract engagements, and full-time roles in tech,
             nonprofit, and government sectors.
           </p>
           <div className="contact-grid">
             <div className="contact-info">
               <p>
                 Whether you have a role to fill, a project that needs an experienced designer,
-                or just want to talk L&amp;D --<br />I'd love to hear from you.
+                or just want to talk L&amp;D -- I'd love to hear from you.
               </p>
               <div className="contact-details">
                 <div className="contact-detail">
