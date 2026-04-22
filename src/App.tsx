@@ -129,6 +129,7 @@ const stats = [
 const mainTabs = [
   { id: "samples", label: "Work Samples" },
   { id: "tools", label: "AI-Powered Tools" },
+  { id: "case-studies", label: "Case Studies" },
   { id: "skills", label: "Skills & Tools" },
   { id: "about", label: "About Me" },
 ];
@@ -550,7 +551,85 @@ export default function App() {
               {aiTools.map((item) => <ProjectRow key={item.id} item={item} />)}
             </div>
           )}
+{activeTab === "case-studies" && (
+            <div>
+              <h2 className="tab-heading">Case Studies</h2>
+              <div className="project-row" style={{ flexDirection: "column", gap: 0, paddingBottom: 0 }}>
 
+                {/* Case Study Header */}
+                <div style={{ display: "flex", gap: "20px", alignItems: "flex-start", width: "100%" }}>
+                  <div className="project-icon">🧪</div>
+                  <div className="project-main" style={{ flex: 1 }}>
+                    <div className="project-top">
+                      <div>
+                        <div className="project-title">AI-Powered Coaching Simulation Embedded in Articulate Rise</div>
+                        <div className="project-category">Proof of Concept &nbsp;·&nbsp; Articulate Rise / React / Claude API</div>
+                      </div>
+                      <div className="project-links">
+                        <a href="https://storage.googleapis.com/portfolio-elearning-2024/CPNI%20Coaching/index.html" target="_blank" rel="noopener noreferrer" className="project-link">Live Demo ↗</a>
+                        <a href="https://docs.google.com/document/d/1LJVB9rFEN0OhxhrtODpLdc2OUUvge2GmwFaCF8CpsKk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="project-link">Sample Responses ↗</a>
+                        <a href="https://community.articulate.com/discussions/exchange/ai%E2%80%91powered-real%E2%80%91time-role%E2%80%91play-platforms/1256235/replies/1256643" target="_blank" rel="noopener noreferrer" className="project-link">Community Thread ↗</a>
+                      </div>
+                    </div>
+                    <div className="project-chips" style={{ marginBottom: "24px" }}>
+                      {["Articulate Rise 360", "React", "Vite", "Claude API", "Vercel", "Serverless", "CPNI Compliance"].map(tag => <span key={tag} className="chip">{tag}</span>)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Case Study Body */}
+                <div style={{ borderTop: "1px solid var(--border)", paddingTop: "32px", marginTop: "8px", display: "flex", flexDirection: "column", gap: "32px" }}>
+
+                  {/* The Problem */}
+                  <div>
+                    <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "10px" }}>The Problem</div>
+                    <p style={{ fontSize: "0.925rem", color: "var(--muted)", lineHeight: 1.75 }}>
+                      A member of the Articulate community posted an unsolved challenge: no one had successfully embedded a seamless, AI-powered role-play experience directly inside an Articulate Rise course. Every existing solution either redirected learners out of the course or required a separate login -- breaking the learning experience and creating friction. An Articulate staff member tagged me as someone who might be able to crack it.
+                    </p>
+                  </div>
+
+                  {/* My Approach */}
+                  <div>
+                    <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "10px" }}>My Approach</div>
+                    <p style={{ fontSize: "0.925rem", color: "var(--muted)", lineHeight: 1.75 }}>
+                      Rather than theorize, I built a working proof of concept. I chose CPNI compliance as the subject matter -- a real-world scenario familiar to telecom professionals -- to give the demo immediate credibility with practitioners. The activity puts the learner in the role of a compliance supervisor who has just reviewed a flagged customer service call. They read the monitoring summary, document the coaching they would provide to the rep, and receive structured AI-scored feedback on their write-up -- all without ever leaving the Rise frame.
+                    </p>
+                  </div>
+
+                  {/* The Solution */}
+                  <div>
+                    <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "10px" }}>The Solution</div>
+                    <p style={{ fontSize: "0.925rem", color: "var(--muted)", lineHeight: 1.75 }}>
+                      A single Rise slide using the Multimedia Embed block to iframe a purpose-built React + Vite application deployed to Vercel. A serverless function protects the Anthropic API key server-side. No redirect. No separate login. The entire interaction -- scenario review, response input, and AI-scored feedback -- runs completely inside the Rise course frame. Built in approximately two hours using Cursor and Claude.
+                    </p>
+                  </div>
+
+                  {/* Impact */}
+                  <div>
+                    <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "10px" }}>Impact</div>
+                    <p style={{ fontSize: "0.925rem", color: "var(--muted)", lineHeight: 1.75, marginBottom: "16px" }}>
+                      Posted back to the community thread with a working demo and received immediate response from the LXD community: multiple members requested to learn the build process, an Articulate staff member highlighted the solution publicly, and the original poster received a working answer to a problem that had gone unsolved. One community member suggested hosting a webinar based on the volume of interest.
+                    </p>
+                    <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                      {[
+                        { value: "~2 hrs", label: "Build Time" },
+                        { value: "4+", label: "Community Likes" },
+                        { value: "Zero", label: "Redirects or Logins" },
+                        { value: "1", label: "Rise Slide" },
+                      ].map(s => (
+                        <div key={s.label} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "16px 20px", minWidth: "120px", textAlign: "center" }}>
+                          <div style={{ fontFamily: "var(--font-head)", fontSize: "1.4rem", fontWeight: 800, color: "var(--gold)", lineHeight: 1, marginBottom: "6px" }}>{s.value}</div>
+                          <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          )}
+          
           {activeTab === "skills" && (
             <>
               <h2 className="tab-heading">Skills &amp; Tools</h2>
