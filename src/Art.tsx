@@ -16,7 +16,6 @@ const photos: Photo[] = [
   { id: 8,  src: `${BASE}/DSCF9679.JPG`,         title: "Weeping",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 3,  src: `${BASE}/DSCF0046.jpg`,         title: "Creek",           location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "portrait"  },
   { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
-  { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 6,  src: `${BASE}/DSCF9848(1).JPG`,      title: "Driftwood",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 13, src: `${BASE}/DSCF9065.jpg`,         title: "Ridgeline",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 15, src: `${BASE}/DSCF9942.jpg`,         title: "Reverie",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
@@ -24,7 +23,8 @@ const photos: Photo[] = [
   // ── COLOR INFRARED ────────────────────────
   { id: 11, src: `${BASE}/DSCF9986(1).JPG`,      title: "Olympic",         location: "Olympic Peninsula", collection: "Color Infrared", aspect: "landscape" },
   { id: 12, src: `${BASE}/DSCF9043.jpg`,         title: "Gap",             location: "Olympic Peninsula", collection: "Color Infrared", aspect: "portrait"  },
-  { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+  { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Color Infrared", aspect: "portrait"  },
+  { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Color Infrared", aspect: "portrait"  },
 
   // ── AFTER DARK ────────────────────────────
   { id: 14, src: `${BASE}/DSCF9239(1).jpg`,      title: "Light Trails",    location: "Bellevue, WA",      collection: "After Dark",     aspect: "landscape" },
@@ -95,7 +95,7 @@ export default function Art() {
   const [lightbox, setLightbox] = useState<Photo | null>(null);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
 
-  const isTravel = activeCollection === "Peru" || activeCollection === "Ecuador" || activeCollection === "Travel";
+  const isTravel = activeCollection === "Peru" || activeCollection === "Ecuador";
 
   const filtered = (() => {
     if (activeCollection === "All") {
@@ -250,21 +250,6 @@ export default function Art() {
           height: 1px;
           background: #ffffff08;
           min-width: 20px;
-        }
-
-        .nav-group-label {
-          font-size: 9px;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: #333348;
-          padding: 4px 0;
-          white-space: nowrap;
-        }
-
-        .nav-divider {
-          width: 1px;
-          height: 14px;
-          background: #ffffff10;
         }
 
         .filter-btn {
@@ -513,7 +498,7 @@ export default function Art() {
           transform: translateY(-50%);
           background: none; border: none;
           cursor: pointer;
-          color: #2a2a40;
+          color: #505070;
           transition: color 0.3s ease;
           padding: 16px;
           z-index: 1001;
@@ -528,7 +513,7 @@ export default function Art() {
           transform: translateX(-50%);
           font-size: 10px;
           letter-spacing: 0.3em;
-          color: #2a2a40;
+          color: #505070;
         }
 
         @media (max-width: 900px) {
@@ -568,7 +553,12 @@ export default function Art() {
   <div className="art-nav-rule" />
 </nav>
 
-        {isTravel
+        {activeCollection === "All" ? (
+          <>
+            {renderPhotoGrid(photos.filter((p) => p.collection !== "Portraits" && p.collection !== "Peru" && p.collection !== "Ecuador"))}
+            {renderTravelView()}
+          </>
+        ) : isTravel
           ? renderTravelView()
           : renderPhotoGrid(filtered)
         }
