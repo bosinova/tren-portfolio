@@ -1,0 +1,508 @@
+import { useState, useEffect, useCallback } from "react";
+
+const BASE = "https://hikwbsudpv0qakso.public.blob.vercel-storage.com";
+
+const photos = [
+  // ── INFRARED ──────────────────────────────
+  { id: 1,  src: `${BASE}/DSCF9678(1).JPG`,      title: "Solitary",        location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
+  
+  { id: 3,  src: `${BASE}/DSCF0046.jpg`,         title: "Creek",           location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "portrait"  },
+  { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
+  { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+  { id: 6,  src: `${BASE}/DSCF9848(1).JPG`,      title: "Driftwood",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
+  { id: 8,  src: `${BASE}/DSCF9679.JPG`,         title: "Weeping",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+  { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+  { id: 13, src: `${BASE}/DSCF9065.jpg`,         title: "Ridgeline",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
+  { id: 15, src: `${BASE}/DSCF9942.jpg`,         title: "Reverie",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+
+  // ── COLOR INFRARED ────────────────────────
+  { id: 11, src: `${BASE}/DSCF9986(1).JPG`,      title: "Olympic",         location: "Olympic Peninsula", collection: "Color Infrared", aspect: "landscape" },
+  { id: 12, src: `${BASE}/DSCF9043.jpg`,         title: "Gap",             location: "Olympic Peninsula", collection: "Color Infrared", aspect: "portrait"  },
+
+  // ── AFTER DARK ────────────────────────────
+  { id: 14, src: `${BASE}/DSCF9239(1).jpg`,      title: "Light Trails",    location: "Bellevue, WA",      collection: "After Dark",     aspect: "landscape" },
+  { id: 10, src: `${BASE}/DSCF9215(1).jpg`,      title: "Violet",          location: "Pacific Northwest", collection: "After Dark",     aspect: "portrait"  },
+  { id: 17, src: `${BASE}/DSCF9212(1).jpg`,      title: "Bloom",           location: "Pacific Northwest", collection: "After Dark",     aspect: "portrait"  },
+
+  // ── ARCHITECTURE ──────────────────────────
+  { id: 18, src: `${BASE}/DSCF9918(1).JPG`,      title: "Victorian",       location: "Port Townsend, WA", collection: "Architecture",   aspect: "portrait"  },
+  { id: 19, src: `${BASE}/DSCF9430.JPG`,         title: "Cathedral",       location: "Quito, Ecuador",    collection: "Architecture",   aspect: "portrait"  },
+  { id: 20, src: `${BASE}/DSCF9449.JPG`,         title: "Quito",           location: "Quito, Ecuador",    collection: "Architecture",   aspect: "portrait"  },
+  { id: 23, src: `${BASE}/APC_1926(1).JPG`,      title: "Pipework",        location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
+
+  // ── PORTRAITS ─────────────────────────────
+  { id: 22, src: `${BASE}/IMG_2571_jpg(1).JPG`,  title: "Autumn",          location: "Pacific Northwest", collection: "Portraits",      aspect: "portrait"  },
+  { id: 28, src: `${BASE}/APC_0101(1).JPG`,      title: "Café",            location: "Cuenca, Ecuador",   collection: "Portraits",      aspect: "portrait"  },
+  { id: 29, src: `${BASE}/DSC09353(1).JPG`,      title: "Dusk",            location: "Pacific Northwest", collection: "Portraits",      aspect: "landscape" },
+  { id: 30, src: `${BASE}/DSC09357(1).JPG`,      title: "Horizon",         location: "Pacific Northwest", collection: "Portraits",      aspect: "landscape" },
+  
+  // ── FILM ──────────────────────────────────
+  { id: 25, src: `${BASE}/IMG_3226.JPG`,         title: "Tulips",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
+  { id: 26, src: `${BASE}/img008.png`,           title: "Tail Fin",        location: "Pacific Northwest", collection: "Film",           aspect: "portrait"  },
+  { id: 27, src: `${BASE}/img006.png`,           title: "Chrome",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
+];
+
+const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film"];
+
+function PlaceholderImage({ title }) {
+  return (
+    <div style={{
+      width: "100%", height: "100%", minHeight: "160px",
+      background: "linear-gradient(135deg, #0a0a14 0%, #141420 100%)",
+      display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center", gap: "10px",
+    }}>
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" style={{ opacity: 0.15 }}>
+        <rect x="2" y="6" width="28" height="20" rx="3" stroke="#e8e8f0" strokeWidth="1.5" />
+        <circle cx="16" cy="16" r="5" stroke="#e8e8f0" strokeWidth="1.5" />
+        <circle cx="24" cy="10" r="1.5" fill="#e8e8f0" />
+      </svg>
+      <span style={{ color: "#e8e8f0", opacity: 0.12, fontSize: "9px", letterSpacing: "0.2em", fontFamily: "inherit", textTransform: "uppercase" }}>
+        {title}
+      </span>
+    </div>
+  );
+}
+
+export default function Art() {
+  const [activeCollection, setActiveCollection] = useState("All");
+  const [lightbox, setLightbox] = useState(null);
+  const [imgErrors, setImgErrors] = useState({});
+
+  const filtered = activeCollection === "All"
+    ? photos.filter((p) => p.collection !== "Portraits")
+    : photos.filter((p) => p.collection === activeCollection);
+
+  const openLightbox = useCallback((photo) => {
+    setLightbox(photo);
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightbox(null);
+    document.body.style.overflow = "";
+  }, []);
+
+  const navigateLightbox = useCallback((dir) => {
+    if (!lightbox) return;
+    const idx = filtered.findIndex((p) => p.id === lightbox.id);
+    setLightbox(filtered[(idx + dir + filtered.length) % filtered.length]);
+  }, [lightbox, filtered]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (!lightbox) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") navigateLightbox(1);
+      if (e.key === "ArrowLeft") navigateLightbox(-1);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightbox, closeLightbox, navigateLightbox]);
+
+  const handleImgError = (id) => setImgErrors(prev => ({ ...prev, [id]: true }));
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&family=Didact+Gothic&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        .art-root {
+          min-height: 100vh;
+          background: #080810;
+          color: #c8c8d4;
+          font-family: 'Didact Gothic', sans-serif;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .art-header {
+          position: relative;
+          z-index: 10;
+          padding: 48px 48px 32px;
+          opacity: 0;
+          animation: fadeUp 0.8s ease forwards;
+        }
+
+        .art-name {
+          font-family: 'Bodoni Moda', serif;
+          font-weight: 700;
+          font-size: clamp(2.6rem, 5vw, 4rem);
+          color: #f0f0f8;
+          line-height: 1;
+          letter-spacing: 0.02em;
+        }
+
+        .art-subtitle {
+          font-size: 10px;
+          letter-spacing: 0.38em;
+          text-transform: uppercase;
+          color: #444458;
+          margin-top: 10px;
+        }
+
+        .art-nav {
+          position: relative;
+          z-index: 10;
+          padding: 0 48px 32px;
+          display: flex;
+          gap: 28px;
+          align-items: center;
+          flex-wrap: wrap;
+          opacity: 0;
+          animation: fadeUp 0.8s ease 0.15s forwards;
+        }
+
+        .art-nav-rule {
+          flex: 1;
+          height: 1px;
+          background: #ffffff08;
+          min-width: 20px;
+        }
+
+        .filter-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #3a3a50;
+          padding: 4px 0;
+          position: relative;
+          transition: color 0.3s ease;
+          white-space: nowrap;
+        }
+        .filter-btn::after {
+          content: '';
+          position: absolute;
+          bottom: 0; left: 0;
+          width: 0; height: 1px;
+          background: #9090b0;
+          transition: width 0.3s ease;
+        }
+        .filter-btn:hover { color: #9090b0; }
+        .filter-btn:hover::after { width: 100%; }
+        .filter-btn.active { color: #c8c8d4; }
+        .filter-btn.active::after { width: 100%; background: #c8c8d4; }
+
+        .art-grid {
+          position: relative;
+          z-index: 10;
+          padding: 0 48px;
+          columns: 3;
+          column-gap: 10px;
+          flex: 1;
+        }
+
+        .art-item {
+          display: inline-block;
+          width: 100%;
+          margin-bottom: 10px;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          opacity: 0;
+          animation: fadeUp 0.65s ease forwards;
+          vertical-align: top;
+        }
+
+        .art-item-inner {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .art-item-inner img {
+          width: 100%;
+          height: auto;
+          display: block;
+          transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s ease;
+          filter: brightness(0.85);
+        }
+
+        .art-item:hover .art-item-inner img {
+          transform: scale(1.04);
+          filter: brightness(1);
+        }
+
+        .placeholder-wrap {
+          width: 100%;
+          aspect-ratio: 4/3;
+          transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.5s ease;
+          filter: brightness(0.85);
+        }
+
+        .art-item:hover .placeholder-wrap {
+          transform: scale(1.04);
+          filter: brightness(1);
+        }
+
+        .art-caption {
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          padding: 32px 14px 12px;
+          background: linear-gradient(to top, rgba(8,8,16,0.9) 0%, transparent 100%);
+          opacity: 0;
+          transform: translateY(4px);
+          transition: opacity 0.4s ease, transform 0.4s ease;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+        }
+
+        .art-item:hover .art-caption { opacity: 1; transform: translateY(0); }
+
+        .caption-title {
+          font-family: 'Bodoni Moda', serif;
+          font-weight: 700;
+          font-size: 15px;
+          color: #e8e8f0;
+          line-height: 1;
+          letter-spacing: 0.02em;
+        }
+
+        .caption-meta {
+          font-size: 9px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #888899;
+        }
+
+        .art-footer {
+          position: relative;
+          z-index: 10;
+          padding: 40px 48px 36px;
+          border-top: 1px solid #ffffff06;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 48px;
+        }
+
+        .footer-name {
+          font-family: 'Bodoni Moda', serif;
+          font-weight: 700;
+          font-size: 14px;
+          color: #2a2a3a;
+          letter-spacing: 0.05em;
+        }
+
+        .footer-back {
+          font-size: 10px;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: #2a2a3a;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+        .footer-back:hover { color: #7070a0; }
+
+        .lightbox-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(4,4,10,0.97);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.25s ease;
+        }
+
+        .lightbox-content {
+          position: relative;
+          max-width: 92vw;
+          max-height: 90vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .lightbox-img-wrap {
+          max-height: 76vh;
+          max-width: 88vw;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .lightbox-img-wrap img {
+          max-height: 76vh;
+          max-width: 88vw;
+          object-fit: contain;
+          display: block;
+        }
+
+        .lightbox-meta { display: flex; gap: 20px; align-items: center; }
+
+        .lightbox-title {
+          font-family: 'Bodoni Moda', serif;
+          font-weight: 700;
+          font-size: 22px;
+          color: #e0e0ec;
+          letter-spacing: 0.02em;
+        }
+
+        .lightbox-loc {
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #444458;
+        }
+
+        .lightbox-close {
+          position: fixed;
+          top: 24px; right: 32px;
+          background: none; border: none;
+          color: #444458;
+          cursor: pointer;
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          font-family: 'Didact Gothic', sans-serif;
+          transition: color 0.3s ease;
+          z-index: 1001;
+        }
+        .lightbox-close:hover { color: #c8c8d4; }
+
+        .lightbox-arrow {
+          position: fixed;
+          top: 50%;
+          transform: translateY(-50%);
+          background: none; border: none;
+          cursor: pointer;
+          color: #2a2a40;
+          transition: color 0.3s ease;
+          padding: 16px;
+          z-index: 1001;
+        }
+        .lightbox-arrow:hover { color: #8080a0; }
+        .lightbox-arrow.prev { left: 16px; }
+        .lightbox-arrow.next { right: 16px; }
+
+        .lightbox-counter {
+          position: fixed;
+          bottom: 24px; left: 50%;
+          transform: translateX(-50%);
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          color: #2a2a40;
+        }
+
+        @media (max-width: 900px) {
+          .art-grid { columns: 2; padding: 0 24px; }
+          .art-header, .art-nav, .art-footer { padding-left: 24px; padding-right: 24px; }
+        }
+        @media (max-width: 560px) { .art-grid { columns: 1; } }
+
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
+
+      <div className="art-root">
+        <header className="art-header">
+          <div className="art-name">Tren Walker</div>
+          <div className="art-subtitle">Photography</div>
+        </header>
+
+        <nav className="art-nav">
+          {COLLECTIONS.map((c) => (
+            <button
+              key={c}
+              className={`filter-btn${activeCollection === c ? " active" : ""}`}
+              onClick={() => setActiveCollection(c)}
+            >
+              {c}
+            </button>
+          ))}
+          <div className="art-nav-rule" />
+        </nav>
+
+        <div className="art-grid">
+          {filtered.map((photo, i) => (
+            <div
+              key={photo.id}
+              className="art-item"
+              style={{ animationDelay: `${i * 0.05}s` }}
+              onClick={() => openLightbox(photo)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openLightbox(photo)}
+              aria-label={`View ${photo.title}`}
+            >
+              <div className="art-item-inner">
+                {photo.src && !imgErrors[photo.id] ? (
+                  <img
+                    src={photo.src}
+                    alt={photo.title}
+                    loading="lazy"
+                    onError={() => handleImgError(photo.id)}
+                  />
+                ) : (
+                  <div className="placeholder-wrap">
+                    <PlaceholderImage title={photo.title} />
+                  </div>
+                )}
+                <div className="art-caption">
+                  <span className="caption-title">{photo.title}</span>
+                  <span className="caption-meta">{photo.location}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <footer className="art-footer">
+          <span className="footer-name">Tren Walker</span>
+          <a href="/" className="footer-back">trenwalker.com &rarr;</a>
+        </footer>
+
+        {lightbox && (
+          <div
+            className="lightbox-overlay"
+            onClick={(e) => e.target === e.currentTarget && closeLightbox()}
+          >
+            <button className="lightbox-close" onClick={closeLightbox}>Close</button>
+            <button className="lightbox-arrow prev" onClick={() => navigateLightbox(-1)} aria-label="Previous">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <div className="lightbox-content">
+              <div className="lightbox-img-wrap">
+                {lightbox.src && !imgErrors[lightbox.id] ? (
+                  <img key={lightbox.id} src={lightbox.src} alt={lightbox.title} onError={() => handleImgError(lightbox.id)} />
+                ) : (
+                  <div style={{ width: "400px", height: "300px" }}>
+                    <PlaceholderImage title={lightbox.title} />
+                  </div>
+                )}
+              </div>
+              <div className="lightbox-meta">
+                <span className="lightbox-title">{lightbox.title}</span>
+                <span className="lightbox-loc">{lightbox.collection} &middot; {lightbox.location}</span>
+              </div>
+            </div>
+            <button className="lightbox-arrow next" onClick={() => navigateLightbox(1)} aria-label="Next">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+            <div className="lightbox-counter">
+              {filtered.findIndex((p) => p.id === lightbox.id) + 1} / {filtered.length}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
