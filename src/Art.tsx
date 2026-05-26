@@ -13,11 +13,11 @@ interface Photo {
 
 const photos: Photo[] = [
   // ── INFRARED ──────────────────────────────
+  { id: 8,  src: `${BASE}/DSCF9679.JPG`,         title: "Weeping",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 3,  src: `${BASE}/DSCF0046.jpg`,         title: "Creek",           location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "portrait"  },
   { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
   { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 6,  src: `${BASE}/DSCF9848(1).JPG`,      title: "Driftwood",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
-  { id: 8,  src: `${BASE}/DSCF9679.JPG`,         title: "Weeping",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 13, src: `${BASE}/DSCF9065.jpg`,         title: "Ridgeline",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 15, src: `${BASE}/DSCF9942.jpg`,         title: "Reverie",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
