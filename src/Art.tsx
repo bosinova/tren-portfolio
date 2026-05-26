@@ -99,7 +99,7 @@ export default function Art() {
 
   const filtered = (() => {
     if (activeCollection === "All") {
-      return photos.filter((p) => p.collection !== "Portraits" && p.collection !== "Peru" && p.collection !== "Ecuador");
+      return photos.filter((p) => p.collection !== "Portraits");
     }
     return photos.filter((p) => p.collection === activeCollection);
   })();
