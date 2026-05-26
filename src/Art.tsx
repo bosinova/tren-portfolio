@@ -2,10 +2,18 @@ import { useState, useEffect, useCallback } from "react";
 
 const BASE = "https://hikwbsudpv0qakso.public.blob.vercel-storage.com";
 
-const photos = [
+interface Photo {
+  id: number;
+  src: string;
+  title: string;
+  location: string;
+  collection: string;
+  aspect: string;
+}
+
+const photos: Photo[] = [
   // ── INFRARED ──────────────────────────────
   { id: 1,  src: `${BASE}/DSCF9678(1).JPG`,      title: "Solitary",        location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
-  
   { id: 3,  src: `${BASE}/DSCF0046.jpg`,         title: "Creek",           location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "portrait"  },
   { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
   { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
@@ -35,7 +43,7 @@ const photos = [
   { id: 28, src: `${BASE}/APC_0101(1).JPG`,      title: "Café",            location: "Cuenca, Ecuador",   collection: "Portraits",      aspect: "portrait"  },
   { id: 29, src: `${BASE}/DSC09353(1).JPG`,      title: "Dusk",            location: "Pacific Northwest", collection: "Portraits",      aspect: "landscape" },
   { id: 30, src: `${BASE}/DSC09357(1).JPG`,      title: "Horizon",         location: "Pacific Northwest", collection: "Portraits",      aspect: "landscape" },
-  
+
   // ── FILM ──────────────────────────────────
   { id: 25, src: `${BASE}/IMG_3226.JPG`,         title: "Tulips",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
   { id: 26, src: `${BASE}/img008.png`,           title: "Tail Fin",        location: "Pacific Northwest", collection: "Film",           aspect: "portrait"  },
@@ -44,7 +52,7 @@ const photos = [
 
 const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film"];
 
-function PlaceholderImage({ title }) {
+function PlaceholderImage({ title }: { title: string }) {
   return (
     <div style={{
       width: "100%", height: "100%", minHeight: "160px",
@@ -66,14 +74,14 @@ function PlaceholderImage({ title }) {
 
 export default function Art() {
   const [activeCollection, setActiveCollection] = useState("All");
-  const [lightbox, setLightbox] = useState(null);
-  const [imgErrors, setImgErrors] = useState({});
+  const [lightbox, setLightbox] = useState<Photo | null>(null);
+  const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
 
   const filtered = activeCollection === "All"
     ? photos.filter((p) => p.collection !== "Portraits")
     : photos.filter((p) => p.collection === activeCollection);
 
-  const openLightbox = useCallback((photo) => {
+  const openLightbox = useCallback((photo: Photo) => {
     setLightbox(photo);
     document.body.style.overflow = "hidden";
   }, []);
@@ -83,14 +91,14 @@ export default function Art() {
     document.body.style.overflow = "";
   }, []);
 
-  const navigateLightbox = useCallback((dir) => {
+  const navigateLightbox = useCallback((dir: number) => {
     if (!lightbox) return;
     const idx = filtered.findIndex((p) => p.id === lightbox.id);
     setLightbox(filtered[(idx + dir + filtered.length) % filtered.length]);
   }, [lightbox, filtered]);
 
   useEffect(() => {
-    const handler = (e) => {
+    const handler = (e: KeyboardEvent) => {
       if (!lightbox) return;
       if (e.key === "Escape") closeLightbox();
       if (e.key === "ArrowRight") navigateLightbox(1);
@@ -100,7 +108,7 @@ export default function Art() {
     return () => window.removeEventListener("keydown", handler);
   }, [lightbox, closeLightbox, navigateLightbox]);
 
-  const handleImgError = (id) => setImgErrors(prev => ({ ...prev, [id]: true }));
+  const handleImgError = (id: number) => setImgErrors(prev => ({ ...prev, [id]: true }));
 
   return (
     <>
