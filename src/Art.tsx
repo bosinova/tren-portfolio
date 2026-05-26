@@ -13,7 +13,6 @@ interface Photo {
 
 const photos: Photo[] = [
   // ── INFRARED ──────────────────────────────
-  { id: 1,  src: `${BASE}/DSCF9678(1).JPG`,      title: "Solitary",        location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 3,  src: `${BASE}/DSCF0046.jpg`,         title: "Creek",           location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "portrait"  },
   { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
   { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
