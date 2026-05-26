@@ -35,7 +35,6 @@ const photos: Photo[] = [
   { id: 18, src: `${BASE}/DSCF9918(1).JPG`,      title: "Victorian",       location: "Port Townsend, WA", collection: "Architecture",   aspect: "portrait"  },
   { id: 19, src: `${BASE}/DSCF9430.JPG`,         title: "Cathedral",       location: "Quito, Ecuador",    collection: "Architecture",   aspect: "portrait"  },
   { id: 23, src: `${BASE}/APC_1926(1).JPG`,      title: "Pipework",        location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
-  { id: 20, src: `${BASE}/DSCF9449.JPG`,         title: "Quito",           location: "Quito, Ecuador",    collection: "Architecture",   aspect: "portrait"  },
 
   // ── PORTRAITS ─────────────────────────────
   { id: 22, src: `${BASE}/IMG_2571_jpg(1).JPG`,  title: "Autumn",          location: "Pacific Northwest", collection: "Portraits",      aspect: "portrait"  },
