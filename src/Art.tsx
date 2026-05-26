@@ -18,13 +18,13 @@ const photos: Photo[] = [
   { id: 4,  src: `${BASE}/DSCF0074.jpg`,         title: "Cathedral Forest",location: "Hoh Rain Forest",   collection: "Infrared",       aspect: "landscape" },
   { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 6,  src: `${BASE}/DSCF9848(1).JPG`,      title: "Driftwood",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
-  { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
   { id: 13, src: `${BASE}/DSCF9065.jpg`,         title: "Ridgeline",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 15, src: `${BASE}/DSCF9942.jpg`,         title: "Reverie",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
 
   // ── COLOR INFRARED ────────────────────────
   { id: 11, src: `${BASE}/DSCF9986(1).JPG`,      title: "Olympic",         location: "Olympic Peninsula", collection: "Color Infrared", aspect: "landscape" },
   { id: 12, src: `${BASE}/DSCF9043.jpg`,         title: "Gap",             location: "Olympic Peninsula", collection: "Color Infrared", aspect: "portrait"  },
+  { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
 
   // ── AFTER DARK ────────────────────────────
   { id: 14, src: `${BASE}/DSCF9239(1).jpg`,      title: "Light Trails",    location: "Bellevue, WA",      collection: "After Dark",     aspect: "landscape" },
@@ -33,8 +33,9 @@ const photos: Photo[] = [
 
   // ── ARCHITECTURE ──────────────────────────
   { id: 18, src: `${BASE}/DSCF9918(1).JPG`,      title: "Victorian",       location: "Port Townsend, WA", collection: "Architecture",   aspect: "portrait"  },
-  { id: 19, src: `${BASE}/DSCF9430.JPG`,         title: "Cathedral",       location: "Quito, Ecuador",    collection: "Architecture",   aspect: "portrait"  },
   { id: 23, src: `${BASE}/APC_1926(1).JPG`,      title: "Pipework",        location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
+  { id: 31, src: `${BASE}/IMG_1546.JPG`,          title: "Public Market",   location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
+  { id: 32, src: `${BASE}/DSCF1516.JPG`,          title: "Red Door",        location: "Pacific Northwest", collection: "Architecture",   aspect: "landscape" },
 
   // ── PORTRAITS ─────────────────────────────
   { id: 22, src: `${BASE}/IMG_2571_jpg(1).JPG`,  title: "Autumn",          location: "Pacific Northwest", collection: "Portraits",      aspect: "portrait"  },
@@ -46,9 +47,28 @@ const photos: Photo[] = [
   { id: 25, src: `${BASE}/IMG_3226.JPG`,         title: "Tulips",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
   { id: 26, src: `${BASE}/img008.png`,           title: "Tail Fin",        location: "Pacific Northwest", collection: "Film",           aspect: "portrait"  },
   { id: 27, src: `${BASE}/img006.png`,           title: "Chrome",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
+
+  // ── PERU ──────────────────────────────────
+  { id: 40, src: `${BASE}/DSC_0272.jpg`,          title: "Ribbons",         location: "Cusco, Peru",         collection: "Peru",           aspect: "portrait"  },
+  { id: 41, src: `${BASE}/DSC_0530.jpg`,          title: "Still",           location: "Ollantaytambo, Peru", collection: "Peru",           aspect: "portrait"  },
+  { id: 42, src: `${BASE}/DSC_0750.jpg`,          title: "Elsewhere",       location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "portrait"  },
+  { id: 43, src: `${BASE}/DSC_0755.jpg`,          title: "Resident",        location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "portrait"  },
+  { id: 44, src: `${BASE}/DSC_0914.jpg`,          title: "Above the World", location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "landscape" },
+  { id: 45, src: `${BASE}/DSC_0944.jpg`,          title: "Emergence",       location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "landscape" },
+
+  // ── ECUADOR ───────────────────────────────
+  { id: 50, src: `${BASE}/IMG_2086.jpg`,          title: "Benediction",     location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
+  { id: 51, src: `${BASE}/DSCF9399.JPG`,         title: "El Panecillo",    location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "landscape" },
+  { id: 52, src: `${BASE}/DSCF9388.JPG`,         title: "Ascent",          location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
+  { id: 53, src: `${BASE}/DSCF9430.JPG`,         title: "Cathedral",       location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
 ];
 
-const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film"];
+const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film", "Peru", "Ecuador"];
+
+const TRAVEL_SECTIONS: { label: string; collection: string; meta: string }[] = [
+  { label: "Peru",    collection: "Peru",    meta: "Cusco · Ollantaytambo · Machu Picchu" },
+  { label: "Ecuador", collection: "Ecuador", meta: "Quito" },
+];
 
 function PlaceholderImage({ title }: { title: string }) {
   return (
@@ -75,9 +95,14 @@ export default function Art() {
   const [lightbox, setLightbox] = useState<Photo | null>(null);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
 
-  const filtered = activeCollection === "All"
-    ? photos.filter((p) => p.collection !== "Portraits")
-    : photos.filter((p) => p.collection === activeCollection);
+  const isTravel = activeCollection === "Peru" || activeCollection === "Ecuador" || activeCollection === "Travel";
+
+  const filtered = (() => {
+    if (activeCollection === "All") {
+      return photos.filter((p) => p.collection !== "Portraits" && p.collection !== "Peru" && p.collection !== "Ecuador");
+    }
+    return photos.filter((p) => p.collection === activeCollection);
+  })();
 
   const openLightbox = useCallback((photo: Photo) => {
     setLightbox(photo);
@@ -107,6 +132,66 @@ export default function Art() {
   }, [lightbox, closeLightbox, navigateLightbox]);
 
   const handleImgError = (id: number) => setImgErrors(prev => ({ ...prev, [id]: true }));
+
+  const renderPhotoGrid = (photoList: Photo[], startDelay = 0) => (
+    <div className="art-grid">
+      {photoList.map((photo, i) => (
+        <div
+          key={photo.id}
+          className="art-item"
+          style={{ animationDelay: `${startDelay + i * 0.05}s` }}
+          onClick={() => openLightbox(photo)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && openLightbox(photo)}
+          aria-label={`View ${photo.title}`}
+        >
+          <div className="art-item-inner">
+            {photo.src && !imgErrors[photo.id] ? (
+              <img
+                src={photo.src}
+                alt={photo.title}
+                loading="lazy"
+                onError={() => handleImgError(photo.id)}
+              />
+            ) : (
+              <div className="placeholder-wrap">
+                <PlaceholderImage title={photo.title} />
+              </div>
+            )}
+            <div className="art-caption">
+              <span className="caption-title">{photo.title}</span>
+              <span className="caption-meta">{photo.location}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderTravelView = () => {
+    const sections = activeCollection === "All"
+      ? TRAVEL_SECTIONS
+      : TRAVEL_SECTIONS.filter((s) => s.collection === activeCollection);
+
+    let delayCounter = 0.2;
+    return sections.map((section) => {
+      const sectionPhotos = photos.filter((p) => p.collection === section.collection);
+      const delay = delayCounter;
+      delayCounter += sectionPhotos.length * 0.05 + 0.3;
+      return (
+        <div key={section.collection}>
+          <div className="section-header" style={{ animationDelay: `${delay - 0.1}s` }}>
+            <div className="section-title">{section.label}</div>
+            <div className="section-meta">{section.meta}</div>
+          </div>
+          <div className="section-rule" style={{ animationDelay: `${delay - 0.05}s` }} />
+          {renderPhotoGrid(sectionPhotos, delay)}
+          <div className="section-gap" />
+        </div>
+      );
+    });
+  };
 
   return (
     <>
@@ -167,6 +252,21 @@ export default function Art() {
           min-width: 20px;
         }
 
+        .nav-group-label {
+          font-size: 9px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #333348;
+          padding: 4px 0;
+          white-space: nowrap;
+        }
+
+        .nav-divider {
+          width: 1px;
+          height: 14px;
+          background: #ffffff10;
+        }
+
         .filter-btn {
           background: none;
           border: none;
@@ -193,6 +293,39 @@ export default function Art() {
         .filter-btn:hover::after { width: 100%; }
         .filter-btn.active { color: #c8c8d4; }
         .filter-btn.active::after { width: 100%; background: #c8c8d4; }
+
+        .section-header {
+          padding: 0 48px 20px;
+          opacity: 0;
+          animation: fadeUp 0.8s ease forwards;
+        }
+
+        .section-title {
+          font-family: 'Bodoni Moda', serif;
+          font-weight: 700;
+          font-size: clamp(1.4rem, 3vw, 2rem);
+          color: #f0f0f8;
+          line-height: 1;
+          letter-spacing: 0.02em;
+        }
+
+        .section-meta {
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: #444458;
+          margin-top: 8px;
+        }
+
+        .section-rule {
+          margin: 0 48px 32px;
+          height: 1px;
+          background: #ffffff08;
+          opacity: 0;
+          animation: fadeUp 0.8s ease forwards;
+        }
+
+        .section-gap { height: 64px; }
 
         .art-grid {
           position: relative;
@@ -400,7 +533,7 @@ export default function Art() {
 
         @media (max-width: 900px) {
           .art-grid { columns: 2; padding: 0 24px; }
-          .art-header, .art-nav, .art-footer { padding-left: 24px; padding-right: 24px; }
+          .art-header, .art-nav, .section-header, .section-rule, .art-footer { padding-left: 24px; padding-right: 24px; }
         }
         @media (max-width: 560px) { .art-grid { columns: 1; } }
 
@@ -414,14 +547,26 @@ export default function Art() {
         }
       `}</style>
 
-<div className="art-root" onContextMenu={(e) => e.preventDefault()}>
+      <div className="art-root" onContextMenu={(e) => e.preventDefault()}>
         <header className="art-header">
           <div className="art-name">Tren Walker</div>
-          <div className="art-subtitle">Photography</div>
+          <div className="art-subtitle">
+            {activeCollection === "All" ? "Photography" : activeCollection}
+          </div>
         </header>
 
         <nav className="art-nav">
-          {COLLECTIONS.map((c) => (
+          {["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film"].map((c) => (
+            <button
+              key={c}
+              className={`filter-btn${activeCollection === c ? " active" : ""}`}
+              onClick={() => setActiveCollection(c)}
+            >
+              {c}
+            </button>
+          ))}
+          <div className="nav-divider" />
+          {["Peru", "Ecuador"].map((c) => (
             <button
               key={c}
               className={`filter-btn${activeCollection === c ? " active" : ""}`}
@@ -433,39 +578,10 @@ export default function Art() {
           <div className="art-nav-rule" />
         </nav>
 
-        <div className="art-grid">
-          {filtered.map((photo, i) => (
-            <div
-              key={photo.id}
-              className="art-item"
-              style={{ animationDelay: `${i * 0.05}s` }}
-              onClick={() => openLightbox(photo)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === "Enter" && openLightbox(photo)}
-              aria-label={`View ${photo.title}`}
-            >
-              <div className="art-item-inner">
-                {photo.src && !imgErrors[photo.id] ? (
-                  <img
-                    src={photo.src}
-                    alt={photo.title}
-                    loading="lazy"
-                    onError={() => handleImgError(photo.id)}
-                  />
-                ) : (
-                  <div className="placeholder-wrap">
-                    <PlaceholderImage title={photo.title} />
-                  </div>
-                )}
-                <div className="art-caption">
-                  <span className="caption-title">{photo.title}</span>
-                  <span className="caption-meta">{photo.location}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {isTravel
+          ? renderTravelView()
+          : renderPhotoGrid(filtered)
+        }
 
         <footer className="art-footer">
           <span className="footer-name">Tren Walker</span>
