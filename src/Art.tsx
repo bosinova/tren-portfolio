@@ -416,7 +416,7 @@ export default function Art() {
         }
       `}</style>
 
-      <div className="art-root">
+<div className="art-root" onContextMenu={(e) => e.preventDefault()}>
         <header className="art-header">
           <div className="art-name">Tren Walker</div>
           <div className="art-subtitle">Photography</div>
