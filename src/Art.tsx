@@ -556,27 +556,17 @@ export default function Art() {
         </header>
 
         <nav className="art-nav">
-          {["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film"].map((c) => (
-            <button
-              key={c}
-              className={`filter-btn${activeCollection === c ? " active" : ""}`}
-              onClick={() => setActiveCollection(c)}
-            >
-              {c}
-            </button>
-          ))}
-          <div className="nav-divider" />
-          {["Peru", "Ecuador"].map((c) => (
-            <button
-              key={c}
-              className={`filter-btn${activeCollection === c ? " active" : ""}`}
-              onClick={() => setActiveCollection(c)}
-            >
-              {c}
-            </button>
-          ))}
-          <div className="art-nav-rule" />
-        </nav>
+  {COLLECTIONS.map((c) => (
+    <button
+      key={c}
+      className={`filter-btn${activeCollection === c ? " active" : ""}`}
+      onClick={() => setActiveCollection(c)}
+    >
+      {c}
+    </button>
+  ))}
+  <div className="art-nav-rule" />
+</nav>
 
         {isTravel
           ? renderTravelView()
