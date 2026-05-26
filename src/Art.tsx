@@ -146,7 +146,7 @@ export default function Art() {
           font-size: 10px;
           letter-spacing: 0.38em;
           text-transform: uppercase;
-          color: #444458;
+          color: #888899;
           margin-top: 10px;
         }
 
@@ -177,7 +177,7 @@ export default function Art() {
           font-size: 10px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
-          color: #3a3a50;
+          color: #6a6a88;
           padding: 4px 0;
           position: relative;
           transition: color 0.3s ease;
@@ -188,7 +188,7 @@ export default function Art() {
           position: absolute;
           bottom: 0; left: 0;
           width: 0; height: 1px;
-          background: #9090b0;
+          background: #e0e0f0;
           transition: width 0.3s ease;
         }
         .filter-btn:hover { color: #9090b0; }
@@ -358,14 +358,14 @@ export default function Art() {
           font-size: 10px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
-          color: #444458;
+          color: #888899;
         }
 
         .lightbox-close {
           position: fixed;
           top: 24px; right: 32px;
           background: none; border: none;
-          color: #444458;
+          color: #888899;
           cursor: pointer;
           font-size: 10px;
           letter-spacing: 0.3em;
