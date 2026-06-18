@@ -137,26 +137,26 @@ const mainTabs = [
 const services = [
   {
     icon: "⚡",
-    title: "Single Module Build",
-    scope: "One focused module",
-    description: "A single Storyline or Rise module, fully storyboarded, developed, and SCORM-ready. Ideal for a targeted training need, a quick proof of concept, or testing a new design approach.",
+    title: "Starter Module",
+    price: "$750",
+    description: "One polished Storyline or Rise module up to 20 minutes. Includes storyboard, development, and two rounds of revisions. SCORM-ready delivery.",
     tags: ["Storyline 360", "Rise 360", "SCORM"],
     featured: false,
   },
   {
     icon: "🎓",
-    title: "Full Course Development",
-    scope: "End-to-end course design",
-    description: "Complete course design from needs analysis through final LMS-ready delivery. Includes storyboarding, development, stakeholder review cycles, and a polished, deployable package.",
-    tags: ["Needs Analysis", "Multi-Module", "LMS-Ready"],
+    title: "Full Course Build",
+    price: "$2,500",
+    description: "Up to four modules from kickoff through final delivery. Includes needs analysis, storyboarding, development, and LMS-ready package.",
+    tags: ["Multi-Module", "Storyboard", "LMS-Ready"],
     featured: true,
   },
   {
     icon: "🤖",
-    title: "AI-Powered Tools & Integration",
-    scope: "Custom-scoped build",
-    description: "Custom AI-integrated learning experiences, from embedded coaching simulations to standalone authoring tools. Scoped around what your team actually needs, built fast.",
-    tags: ["AI Integration", "Custom Build", "Rapid Prototyping"],
+    title: "AI-Powered Sprint",
+    price: "From $4,500",
+    description: "Custom scope with AI-integrated design and rapid turnaround. Ideal for teams that need enterprise-quality work built at startup speed.",
+    tags: ["AI Integration", "Custom Scope", "Rapid Delivery"],
     featured: false,
   },
 ];
@@ -265,7 +265,7 @@ function ProjectRow({ item }: { item: WorkItem }) {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("samples");
-  const [showServices, setShowServices] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
 
   function jumpToTabs(tab: string) {
     setActiveTab(tab);
@@ -329,10 +329,10 @@ export default function App() {
         .service-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; position: relative; transition: border-color 0.2s, transform 0.2s; }
         .service-card:hover { border-color: var(--border-mid); transform: translateY(-2px); }
         .service-card.featured { border-color: rgba(79,142,247,0.4); background: linear-gradient(135deg, rgba(79,142,247,0.06) 0%, var(--surface) 100%); }
-        .service-card.featured::before { content: 'Most Requested'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 12px; border-radius: 999px; }
+        .service-card.featured::before { content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 12px; border-radius: 999px; }
         .service-icon { font-size: 1.6rem; line-height: 1; }
         .service-title { font-family: var(--font-head); font-size: 1.05rem; font-weight: 800; color: var(--text); }
-        .service-scope { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; color: var(--accent); background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.25); padding: 3px 10px; border-radius: 999px; width: fit-content; }
+        .service-price { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--gold); line-height: 1; }
         .service-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; flex: 1; }
         .service-chips { display: flex; flex-wrap: wrap; gap: 6px; }
         .service-cta { display: block; text-align: center; background: var(--accent); color: #fff; padding: 10px 20px; border-radius: var(--radius); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; transition: background 0.2s, transform 0.15s; margin-top: 4px; }
@@ -470,24 +470,24 @@ export default function App() {
             <button
               className="btn-secondary"
               style={{ margin: "16px auto 0", display: "block" }}
-              onClick={() => setShowServices(!showServices)}
+              onClick={() => setShowPricing(!showPricing)}
             >
-              {showServices ? "Hide" : "See What I Take On"}
+              {showPricing ? "Hide Pricing" : "See Pricing"}
             </button>
           </div>
-          {showServices && (
+          {showPricing && (
             <div>
               <div className="services-grid">
                 {services.map((svc) => (
                   <div key={svc.title} className={`service-card${svc.featured ? " featured" : ""}`}>
                     <div className="service-icon">{svc.icon}</div>
                     <div className="service-title">{svc.title}</div>
-                    <div className="service-scope">{svc.scope}</div>
+                    <div className="service-price">{svc.price}</div>
                     <p className="service-desc">{svc.description}</p>
                     <div className="service-chips">
                       {svc.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
                     </div>
-
+                    
                     <a href="#contact"
                       className="service-cta"
                       onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}
