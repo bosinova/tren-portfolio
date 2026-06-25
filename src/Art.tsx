@@ -73,7 +73,7 @@ const photos: Photo[] = [
 { id: 52, src: `${BASE}/DSCF9388.JPG`,          title: "Ascent",       location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
 { id: 53, src: `${BASE}/DSCF9430.JPG`,          title: "Cathedral",    location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
 { id: 60, src: `${BASE}/ecuador-llama.jpg`,      title: "On the Line",  location: "Mitad del Mundo, Ecuador", collection: "Ecuador", aspect: "portrait"  },
-
+];
 const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film", "Peru", "Ecuador"];
 
 const TRAVEL_SECTIONS: { label: string; collection: string; meta: string }[] = [
