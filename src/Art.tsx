@@ -48,20 +48,31 @@ const photos: Photo[] = [
   { id: 26, src: `${BASE}/img008.png`,           title: "Tail Fin",        location: "Pacific Northwest", collection: "Film",           aspect: "portrait"  },
   { id: 27, src: `${BASE}/img006.png`,           title: "Chrome",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
 
-  // ── PERU ──────────────────────────────────
-  { id: 40, src: `${BASE}/DSC_0272.jpg`,          title: "Ribbons",         location: "Cusco, Peru",         collection: "Peru",           aspect: "portrait"  },
-  { id: 41, src: `${BASE}/DSC_0530.jpg`,          title: "Still",           location: "Ollantaytambo, Peru", collection: "Peru",           aspect: "portrait"  },
-  { id: 42, src: `${BASE}/DSC_0750.jpg`,          title: "Elsewhere",       location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "portrait"  },
-  { id: 43, src: `${BASE}/DSC_0755.jpg`,          title: "Resident",        location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "portrait"  },
-  { id: 44, src: `${BASE}/DSC_0914.jpg`,          title: "Above the World", location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "landscape" },
-  { id: 45, src: `${BASE}/DSC_0944.jpg`,          title: "Emergence",       location: "Machu Picchu, Peru",  collection: "Peru",           aspect: "landscape" },
+// ── PERU ──────────────────────────────────
+{ id: 40, src: `${BASE}/cusco-festival-dancer-ribbons.jpg`,      title: "Ribbons",          location: "Cusco, Peru",          collection: "Peru", aspect: "portrait"  },
+{ id: 41, src: `${BASE}/dancer-embroidered-butterfly-vest.jpg`,  title: "Before the Dance", location: "Cusco, Peru",          collection: "Peru", aspect: "portrait"  },
+{ id: 42, src: `${BASE}/military-cadets-uniform-inspection.jpg`, title: "Ready",            location: "Cusco, Peru",          collection: "Peru", aspect: "landscape" },
+{ id: 43, src: `${BASE}/ollantaytambo-quechua-elder.jpg`,        title: "Still",            location: "Ollantaytambo, Peru",  collection: "Peru", aspect: "portrait"  },
+{ id: 44, src: `${BASE}/inca-doorway-water-channel.jpg`,         title: "Threshold",        location: "Ollantaytambo, Peru",  collection: "Peru", aspect: "portrait"  },
+{ id: 45, src: `${BASE}/DSC_0944.jpg`, title: "Emergence", location: "Machu Picchu, Peru", collection: "Peru", aspect: "landscape" },  
+{ id: 61, src: `${BASE}/inca-wall-andes-sunbeams.jpg`,           title: "The View They Never Show You", location: "Machu Picchu, Peru", collection: "Peru", aspect: "landscape" },
+{ id: 46, src: `${BASE}/intihuatana-stone-mountain.jpg`,         title: "Hitching Post",    location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 47, src: `${BASE}/llama-back-of-head.jpg`,                 title: "Elsewhere",        location: "Machu Picchu, Peru",  collection: "Peru", aspect: "portrait"  },
+{ id: 48, src: `${BASE}/llama-portrait-blue-bokeh.jpg`,          title: "Side Eye",         location: "Machu Picchu, Peru",  collection: "Peru", aspect: "portrait"  },
+{ id: 49, src: `${BASE}/llama-stone-ledge-mist.jpg`,             title: "Resident",         location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 54, src: `${BASE}/machu-picchu-overview-clearing-mist.jpg`,title: "Emergence",        location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 55, src: `${BASE}/machu-picchu-ruins-wildflowers.jpg`,     title: "Discovery",        location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 56, src: `${BASE}/machu-picchu-silhouette-mist.jpg`,       title: "Above the World",  location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 57, src: `${BASE}/machu-picchu-terraces-lone-tree.jpg`,    title: "Solitary",         location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 58, src: `${BASE}/machu-picchu-thatched-huts-dusk.jpg`,    title: "Blue Hour",        location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
+{ id: 59, src: `${BASE}/huayna-picchu-summit-fog.jpg`,           title: "Summit",           location: "Machu Picchu, Peru",  collection: "Peru", aspect: "landscape" },
 
-  // ── ECUADOR ───────────────────────────────
-  { id: 50, src: `${BASE}/IMG_2086.jpg`,          title: "Benediction",     location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
-  { id: 51, src: `${BASE}/DSCF9399.JPG`,         title: "El Panecillo",    location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "landscape" },
-  { id: 52, src: `${BASE}/DSCF9388.JPG`,         title: "Ascent",          location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
-  { id: 53, src: `${BASE}/DSCF9430.JPG`,         title: "Cathedral",       location: "Quito, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
-];
+// ── ECUADOR ───────────────────────────────
+{ id: 50, src: `${BASE}/IMG_2086.jpg`,          title: "Benediction",  location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
+{ id: 51, src: `${BASE}/DSCF9399.JPG`,          title: "El Panecillo", location: "Quito, Ecuador", collection: "Ecuador", aspect: "landscape" },
+{ id: 52, src: `${BASE}/DSCF9388.JPG`,          title: "Ascent",       location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
+{ id: 53, src: `${BASE}/DSCF9430.JPG`,          title: "Cathedral",    location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
+{ id: 60, src: `${BASE}/ecuador-llama.jpg`,      title: "On the Line",  location: "Mitad del Mundo, Ecuador", collection: "Ecuador", aspect: "portrait"  },
 
 const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film", "Peru", "Ecuador"];
 
