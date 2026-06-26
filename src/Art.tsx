@@ -19,23 +19,37 @@ const photos: Photo[] = [
   { id: 6,  src: `${BASE}/DSCF9848(1).JPG`,      title: "Driftwood",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 13, src: `${BASE}/DSCF9065.jpg`,         title: "Ridgeline",       location: "Pacific Northwest", collection: "Infrared",       aspect: "landscape" },
   { id: 15, src: `${BASE}/DSCF9942.jpg`,         title: "Reverie",         location: "Pacific Northwest", collection: "Infrared",       aspect: "portrait"  },
+  { id: 85, src: `${BASE}/infrared-tree-neoclassical-building.jpg`,                title: "Ghost",          location: "Tacoma, WA",              collection: "Infrared",       aspect: "portrait"  },
+  { id: 86, src: `${BASE}/infrared-forest-path-fence.jpg`, title: "Into the Wood", location: "Bothell, WA", collection: "Infrared", aspect: "portrait" },
+
 
   // ── COLOR INFRARED ────────────────────────
   { id: 11, src: `${BASE}/DSCF9986(1).JPG`,      title: "Olympic",         location: "Olympic Peninsula", collection: "Color Infrared", aspect: "landscape" },
   { id: 12, src: `${BASE}/DSCF9043.jpg`,         title: "Gap",             location: "Olympic Peninsula", collection: "Color Infrared", aspect: "portrait"  },
   { id: 9,  src: `${BASE}/DSCF9246(1).jpg`,      title: "Luminance",       location: "Pacific Northwest", collection: "Color Infrared", aspect: "portrait"  },
   { id: 5,  src: `${BASE}/DSCF9353(1).jpg`,      title: "The Path",        location: "Pacific Northwest", collection: "Color Infrared", aspect: "portrait"  },
+  { id: 83, src: `${BASE}/tacoma-museum-of-glass-infrared.jpg`,                    title: "Old and New",    location: "Tacoma, WA",              collection: "Color Infrared", aspect: "landscape" },
+  { id: 84, src: `${BASE}/tacoma-museum-stairs-infrared.jpg`,  
 
   // ── AFTER DARK ────────────────────────────
   { id: 14, src: `${BASE}/DSCF9239(1).jpg`,      title: "Light Trails",    location: "Bellevue, WA",      collection: "After Dark",     aspect: "landscape" },
   { id: 10, src: `${BASE}/DSCF9215(1).jpg`,      title: "Violet",          location: "Pacific Northwest", collection: "After Dark",     aspect: "portrait"  },
   { id: 17, src: `${BASE}/DSCF9212(1).jpg`,      title: "Bloom",           location: "Pacific Northwest", collection: "After Dark",     aspect: "portrait"  },
+  { id: 87, src: `${BASE}/park-night-uplighting-benches-bw.jpg`,                   title: "Vigil",          location: "Tacoma, WA",              collection: "After Dark",     aspect: "landscape" },
+{ id: 88, src: `${BASE}/seattle-broad-street-blue-hour.jpg`,                     title: "Broad",          location: "Seattle, WA",             collection: "After Dark",     aspect: "landscape" },
+{ id: 89, src: `${BASE}/seattle-international-fountain-space-needle-dusk.jpg`,   title: "Reach",          location: "Seattle, WA",             collection: "After Dark",     aspect: "portrait"  },
+{ id: 90, src: `${BASE}/seattle-stadium-arches-sunset.jpg`,    
 
   // ── ARCHITECTURE ──────────────────────────
   { id: 18, src: `${BASE}/DSCF9918(1).JPG`,      title: "Victorian",       location: "Port Townsend, WA", collection: "Architecture",   aspect: "portrait"  },
   { id: 23, src: `${BASE}/APC_1926(1).JPG`,      title: "Pipework",        location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
   { id: 31, src: `${BASE}/IMG_1546.JPG`,          title: "Public Market",   location: "Seattle, WA",       collection: "Architecture",   aspect: "landscape" },
   { id: 32, src: `${BASE}/DSCF1516.JPG`,          title: "Red Door",        location: "Pacific Northwest", collection: "Architecture",   aspect: "landscape" },
+  { id: 78, src: `${BASE}/architecture-steel-sphere-silhouette.jpg`,               title: "Exoskeleton",    location: "Tokyo, Japan",            collection: "Architecture",   aspect: "portrait"  },
+{ id: 79, src: `${BASE}/tokyo-forum-interior-atrium.jpg`,                        title: "Nave",           location: "Tokyo, Japan",            collection: "Architecture",   aspect: "portrait"  },
+{ id: 80, src: `${BASE}/corrugated-tunnel-spiral-light.jpg`,                     title: "The End",        location: "Tacoma, WA",              collection: "Architecture",   aspect: "landscape" },
+{ id: 81, src: `${BASE}/old-city-hall-blue-monochrome.jpg`,                      title: "Civic",          location: "Tacoma, WA",              collection: "Architecture",   aspect: "landscape" },
+{ id: 82, src: `${BASE}/port-townsend-victorian-building-bw.jpg`,  
 
   // ── PORTRAITS ─────────────────────────────
   { id: 22, src: `${BASE}/IMG_2571_jpg(1).JPG`,  title: "Autumn",          location: "Pacific Northwest", collection: "Portraits",      aspect: "portrait"  },
@@ -47,6 +61,7 @@ const photos: Photo[] = [
   { id: 25, src: `${BASE}/IMG_3226.JPG`,         title: "Tulips",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
   { id: 26, src: `${BASE}/img008.png`,           title: "Tail Fin",        location: "Pacific Northwest", collection: "Film",           aspect: "portrait"  },
   { id: 27, src: `${BASE}/img006.png`,           title: "Chrome",          location: "Pacific Northwest", collection: "Film",           aspect: "landscape" },
+  { id: 91, src: `${BASE}/film-rhododendron-backlit-bw.jpg`,  
 
 // ── PERU ──────────────────────────────────
 { id: 40, src: `${BASE}/cusco-festival-dancer-ribbons.jpg`,       title: "Ribbons",          location: "Cusco, Peru",          collection: "Peru", aspect: "portrait"  },
@@ -83,6 +98,13 @@ const photos: Photo[] = [
 { id: 52, src: `${BASE}/DSCF9388.JPG`,          title: "Ascent",       location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
 { id: 53, src: `${BASE}/DSCF9430.JPG`,          title: "Cathedral",    location: "Quito, Ecuador", collection: "Ecuador", aspect: "portrait"  },
 { id: 60, src: `${BASE}/ecuador-llama.jpg`,      title: "On the Line",  location: "Mitad del Mundo, Ecuador", collection: "Ecuador", aspect: "portrait"  },
+{ id: 71, src: `${BASE}/virgen-panecillo-quito-bw.jpg`,                          title: "Crowned",        location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
+{ id: 72, src: `${BASE}/ecuador-precolumbian-idol-infrared.jpg`,                 title: "Ancient",        location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
+{ id: 73, src: `${BASE}/quito-infrared-cityscape-volcano.jpg`,                   title: "Panorama",       location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "landscape" },
+{ id: 74, src: `${BASE}/ecuador-cathedral-bronze-doors-figure.jpg`,              title: "Threshold",      location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
+{ id: 75, src: `${BASE}/ecuador-spiral-staircase-wood.jpg`,                      title: "Descend",        location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
+{ id: 76, src: `${BASE}/pululahua-crater-valley-infrared-portrait.jpg`,          title: "The Crater",     location: "Pululahua, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
+{ id: 77, src: `${BASE}/pululahua-crater-valley-infrared-landscape.jpg`, 
 ];
 const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film", "Peru", "Ecuador"];
 
