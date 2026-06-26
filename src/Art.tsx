@@ -59,7 +59,7 @@ const photos: Photo[] = [
 { id: 46, src: `${BASE}/inca-wall-andes-sunbeams.jpg`,            title: "The Other View",   location: "Machu Picchu, Peru",   collection: "Peru", aspect: "landscape" },
 { id: 47, src: `${BASE}/intihuatana-stone-mountain.jpg`,          title: "Hitching Post",    location: "Machu Picchu, Peru",   collection: "Peru", aspect: "landscape" },
 { id: 48, src: `${BASE}/llama-back-of-head.jpg`,                  title: "Elsewhere",        location: "Machu Picchu, Peru",   collection: "Peru", aspect: "portrait"  },
-{ id: 49, src: `${BASE}/llama-portrait-blue-bokeh.jpg`,           title: "Side Eye",         location: "Machu Picchu, Peru",   collection: "Peru", aspect: "portrait"  },
+{ id: 49, src: `${BASE}/llama-portrait-blue-bokeh.jpg`,           title: "Double Take",      location: "Machu Picchu, Peru",   collection: "Peru", aspect: "portrait"  },
 { id: 50, src: `${BASE}/llama-stone-ledge-mist.jpg`,              title: "Resident",         location: "Machu Picchu, Peru",   collection: "Peru", aspect: "landscape" },
 { id: 54, src: `${BASE}/llama-mist-profile.jpg`,                  title: "Profile",          location: "Machu Picchu, Peru",   collection: "Peru", aspect: "portrait"  },
 { id: 62, src: `${BASE}/llama-ruins-photobomb.jpg`,               title: "Unimpressed",      location: "Machu Picchu, Peru",   collection: "Peru", aspect: "portrait"  },
