@@ -104,7 +104,7 @@ const photos: Photo[] = [
 { id: 74, src: `${BASE}/ecuador-cathedral-bronze-doors-figure.jpg`,              title: "Threshold",      location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
 { id: 75, src: `${BASE}/ecuador-spiral-staircase-wood.jpg`,                      title: "Descend",        location: "Quito, Ecuador",          collection: "Ecuador",        aspect: "portrait"  },
 { id: 76, src: `${BASE}/pululahua-crater-valley-infrared-portrait.jpg`,          title: "The Crater",     location: "Pululahua, Ecuador",      collection: "Ecuador",        aspect: "portrait"  },
-{ id: 77, src: `${BASE}/pululahua-crater-valley-infrared-landscape.jpg`, 
+{ id: 77, src: `${BASE}/pululahua-crater-valley-infrared-landscape.jpg`, title: "Below the Rim", location: "Pululahua, Ecuador", collection: "Ecuador", aspect: "landscape" },
 ];
 const COLLECTIONS = ["All", "Infrared", "Color Infrared", "After Dark", "Architecture", "Portraits", "Film", "Peru", "Ecuador"];
 
