@@ -1,4 +1,4 @@
-const BASE = "https://pub-d1b3a28e884e45b98f8c52294f06eab9.r2.dev";
+const BASE = "https://portfolio-images.tren-walker.workers.dev";
 
 export interface Photo {
   id: number;
