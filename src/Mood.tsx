@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { photos, getPhotoMoods, BASE, type Photo } from "./data/photos";
 
 // ── QUESTION FLOW ───────────────────────────
@@ -71,6 +71,7 @@ type Stage = "intro" | "quiz" | "result";
 
 export default function Mood() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [stage, setStage] = useState<Stage>("intro");
   const [step, setStep] = useState(0);
   const [tagBag, setTagBag] = useState<string[]>([]);
@@ -80,6 +81,19 @@ export default function Mood() {
   const [enlarged, setEnlarged] = useState(false);
   const [likeCount, setLikeCount] = useState<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // If arriving via a shared link (?photo=<id>), skip straight to that
+  // photo's result screen instead of starting the quiz.
+  useEffect(() => {
+    const photoParam = searchParams.get("photo");
+    if (!photoParam) return;
+    const shared = photos.find((p) => String(p.id) === photoParam);
+    if (shared) {
+      setMatch(shared);
+      setStage("result");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const startQuiz = () => {
     setStage("quiz");
@@ -196,7 +210,9 @@ export default function Mood() {
     match ? `${match.title.toLowerCase().replace(/\s+/g, "-")}-trenwalker.jpg` : "mood-match.jpg";
 
   const shareText = () =>
-    match ? `My mood match: "${match.title}" — trenwalker.com/mood` : "";
+    match
+      ? `Check out the photo that matches my mood today: "${match.title}" — ${shareUrl()}`
+      : "";
 
   const downloadBlob = (blob: Blob, filename: string) => {
     const url = URL.createObjectURL(blob);
@@ -207,50 +223,20 @@ export default function Mood() {
     URL.revokeObjectURL(url);
   };
 
-  // Primary share action: uses the native OS share sheet when available
-  // (mobile browsers), which includes Instagram, Facebook, X, Messages, etc.
-  // Falls back to Instagram's manual-save flow if native share isn't supported.
-  const canNativeShare =
-    typeof navigator !== "undefined" &&
-    "share" in navigator &&
-    "canShare" in navigator;
-
-  const nativeShare = async () => {
-    setShareStatus("generating");
-    try {
-      const blob = await buildWatermarkedBlob();
-      const file = new File([blob], shareFileName(), { type: "image/jpeg" });
-      const shareData = { files: [file], title: "My mood match", text: shareText() };
-      if (canNativeShare && navigator.canShare(shareData)) {
-        await navigator.share(shareData);
-        setShareStatus("idle");
-      } else {
-        downloadBlob(blob, shareFileName());
-        setShareStatus("ready");
-      }
-    } catch (err) {
-      if ((err as Error)?.name === "AbortError") {
-        setShareStatus("idle");
-        return;
-      }
-      console.error("Share failed:", err);
-      setShareStatus("error");
-    }
-  };
+  const shareUrl = () =>
+    match ? `https://trenwalker.com/mood?photo=${match.id}` : "https://trenwalker.com/mood";
 
   const shareToFacebook = () => {
-    const pageUrl = "https://trenwalker.com/mood";
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl())}&quote=${encodeURIComponent(shareText())}`,
       "_blank",
       "noopener,noreferrer"
     );
   };
 
   const shareToX = () => {
-    const pageUrl = "https://trenwalker.com/mood";
     window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText())}&url=${encodeURIComponent(pageUrl)}`,
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText())}&url=${encodeURIComponent(shareUrl())}`,
       "_blank",
       "noopener,noreferrer"
     );
@@ -572,9 +558,6 @@ export default function Mood() {
             )}
 
             <div className="mood-actions">
-              <button className="mood-btn" onClick={nativeShare} disabled={shareStatus === "generating"}>
-                {shareStatus === "generating" ? "Preparing..." : "Share"}
-              </button>
               <button className="mood-btn" onClick={restart}>Start over</button>
             </div>
 
