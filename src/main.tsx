@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import App from "./App";
 import Resume from "./Resume";
 import Art from "./Art";
+import Mood from "./Mood";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/art" element={<Art />} />
+        <Route path="/mood" element={<Mood />} />
       </Routes>
     </BrowserRouter>
     <Analytics />
