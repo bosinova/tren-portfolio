@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { photos, getPhotoMoods, type Photo } from "./data/photos";
+import { photos, getPhotoMoods, BASE, type Photo } from "./data/photos";
 
 // ── QUESTION FLOW ───────────────────────────
 // See mood-quiz-framework.md for the reasoning behind this set.
@@ -78,6 +78,7 @@ export default function Mood() {
   const [feedback, setFeedback] = useState<"yes" | "again" | null>(null);
   const [shareStatus, setShareStatus] = useState<"idle" | "generating" | "ready" | "error">("idle");
   const [enlarged, setEnlarged] = useState(false);
+  const [likeCount, setLikeCount] = useState<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const startQuiz = () => {
@@ -98,6 +99,7 @@ export default function Mood() {
       setFeedback(null);
       setShareStatus("idle");
       setEnlarged(false);
+      setLikeCount(null);
       setStage("result");
     }
   };
@@ -115,6 +117,7 @@ export default function Mood() {
     setFeedback(null);
     setShareStatus("idle");
     setEnlarged(false);
+    setLikeCount(null);
   };
 
   const restart = () => {
@@ -125,6 +128,25 @@ export default function Mood() {
     setFeedback(null);
     setShareStatus("idle");
     setEnlarged(false);
+    setLikeCount(null);
+  };
+
+  const sendLike = async () => {
+    if (!match || feedback === "yes") return; // avoid double-counting on repeat clicks
+    setFeedback("yes");
+    try {
+      const res = await fetch(`${BASE}/likes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: match.id }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setLikeCount(data.count);
+      }
+    } catch (err) {
+      console.error("Failed to record like:", err);
+    }
   };
 
   // Generates a watermarked version of the matched photo on a canvas,
@@ -418,7 +440,7 @@ export default function Mood() {
         .mood-feedback {
           display: flex;
           gap: 20px;
-          margin-bottom: 32px;
+          margin-bottom: 12px;
         }
 
         .mood-feedback-btn {
@@ -435,6 +457,14 @@ export default function Mood() {
         }
         .mood-feedback-btn:hover { color: #c8c8d4; }
         .mood-feedback-btn.active { color: #f0f0f8; border-bottom-color: #f0f0f8; }
+
+        .mood-like-count {
+          font-size: 10px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #6a6a88;
+          margin-bottom: 24px;
+        }
 
         .mood-back {
           font-size: 10px;
@@ -523,7 +553,7 @@ export default function Mood() {
             <div className="mood-feedback">
               <button
                 className={`mood-feedback-btn${feedback === "yes" ? " active" : ""}`}
-                onClick={() => setFeedback("yes")}
+                onClick={sendLike}
               >
                 Yes, this is it
               </button>
@@ -534,6 +564,12 @@ export default function Mood() {
                 Show me another
               </button>
             </div>
+
+            {likeCount !== null && (
+              <div className="mood-like-count">
+                {likeCount} {likeCount === 1 ? "person" : "people"} felt this too
+              </div>
+            )}
 
             <div className="mood-actions">
               <button className="mood-btn" onClick={nativeShare} disabled={shareStatus === "generating"}>
