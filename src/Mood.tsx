@@ -124,53 +124,123 @@ export default function Mood() {
   };
 
   // Generates a watermarked version of the matched photo on a canvas,
-  // pulling the image live from R2, then triggers a download.
-  const generateShareImage = useCallback(async () => {
-    if (!match) return;
+  // pulling the image live from R2, and returns it as a Blob.
+  const buildWatermarkedBlob = useCallback(async (): Promise<Blob> => {
+    if (!match) throw new Error("No match to render");
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error("Image failed to load"));
+      img.src = match.src;
+    });
+
+    const canvas = canvasRef.current;
+    if (!canvas) throw new Error("Canvas not available");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas context not available");
+
+    ctx.drawImage(img, 0, 0);
+
+    const fontSize = Math.max(18, Math.round(canvas.width * 0.018));
+    ctx.font = `${fontSize}px sans-serif`;
+    ctx.textAlign = "right";
+    ctx.textBaseline = "bottom";
+    const margin = fontSize * 1.2;
+    const text = "trenwalker.com/art";
+
+    ctx.fillStyle = "rgba(0,0,0,0.45)";
+    ctx.fillText(text, canvas.width - margin + 1, canvas.height - margin + 1);
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.fillText(text, canvas.width - margin, canvas.height - margin);
+
+    return new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob(
+        (blob) => (blob ? resolve(blob) : reject(new Error("Could not create image"))),
+        "image/jpeg",
+        0.92
+      );
+    });
+  }, [match]);
+
+  const shareFileName = () =>
+    match ? `${match.title.toLowerCase().replace(/\s+/g, "-")}-trenwalker.jpg` : "mood-match.jpg";
+
+  const shareText = () =>
+    match ? `My mood match: "${match.title}" — trenwalker.com/mood` : "";
+
+  const downloadBlob = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Primary share action: uses the native OS share sheet when available
+  // (mobile browsers), which includes Instagram, Facebook, X, Messages, etc.
+  // Falls back to Instagram's manual-save flow if native share isn't supported.
+  const canNativeShare =
+    typeof navigator !== "undefined" &&
+    "share" in navigator &&
+    "canShare" in navigator;
+
+  const nativeShare = async () => {
     setShareStatus("generating");
     try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error("Image failed to load"));
-        img.src = match.src;
-      });
-
-      const canvas = canvasRef.current;
-      if (!canvas) throw new Error("Canvas not available");
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("Canvas context not available");
-
-      ctx.drawImage(img, 0, 0);
-
-      // Watermark: small text, bottom-right corner
-      const fontSize = Math.max(18, Math.round(canvas.width * 0.018));
-      ctx.font = `${fontSize}px sans-serif`;
-      ctx.textAlign = "right";
-      ctx.textBaseline = "bottom";
-      const margin = fontSize * 1.2;
-      const text = "trenwalker.com/art";
-
-      ctx.fillStyle = "rgba(0,0,0,0.45)";
-      ctx.fillText(text, canvas.width - margin + 1, canvas.height - margin + 1);
-      ctx.fillStyle = "rgba(255,255,255,0.85)";
-      ctx.fillText(text, canvas.width - margin, canvas.height - margin);
-
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = `${match.title.toLowerCase().replace(/\s+/g, "-")}-trenwalker.jpg`;
-      link.click();
-
-      setShareStatus("ready");
+      const blob = await buildWatermarkedBlob();
+      const file = new File([blob], shareFileName(), { type: "image/jpeg" });
+      const shareData = { files: [file], title: "My mood match", text: shareText() };
+      if (canNativeShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+        setShareStatus("idle");
+      } else {
+        downloadBlob(blob, shareFileName());
+        setShareStatus("ready");
+      }
     } catch (err) {
-      console.error("Watermark generation failed:", err);
+      if ((err as Error)?.name === "AbortError") {
+        setShareStatus("idle");
+        return;
+      }
+      console.error("Share failed:", err);
       setShareStatus("error");
     }
-  }, [match]);
+  };
+
+  const shareToFacebook = () => {
+    const pageUrl = "https://trenwalker.com/mood";
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  const shareToX = () => {
+    const pageUrl = "https://trenwalker.com/mood";
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText())}&url=${encodeURIComponent(pageUrl)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  const shareToInstagram = async () => {
+    setShareStatus("generating");
+    try {
+      const blob = await buildWatermarkedBlob();
+      downloadBlob(blob, shareFileName());
+      setShareStatus("ready");
+    } catch (err) {
+      console.error("Instagram share prep failed:", err);
+      setShareStatus("error");
+    }
+  };
 
   return (
     <>
@@ -336,6 +406,27 @@ export default function Mood() {
           margin-top: -8px;
           margin-bottom: 20px;
         }
+
+        .mood-social-row {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+
+        .mood-social-btn {
+          background: none;
+          border: 1px solid #2a2a3a;
+          color: #9090a8;
+          font-family: 'Didact Gothic', sans-serif;
+          font-size: 10px;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          padding: 10px 16px;
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+        .mood-social-btn:hover { border-color: #7070a0; color: #f0f0f8; }
+        .mood-social-btn:disabled { opacity: 0.5; cursor: default; }
       `}</style>
 
       <div className="mood-root">
@@ -389,11 +480,22 @@ export default function Mood() {
             </div>
 
             <div className="mood-actions">
-              <button className="mood-btn" onClick={generateShareImage} disabled={shareStatus === "generating"}>
-                {shareStatus === "generating" ? "Preparing..." : "Download to share"}
+              <button className="mood-btn" onClick={nativeShare} disabled={shareStatus === "generating"}>
+                {shareStatus === "generating" ? "Preparing..." : "Share"}
               </button>
               <button className="mood-btn" onClick={restart}>Start over</button>
             </div>
+
+            <div className="mood-social-row">
+              <button className="mood-social-btn" onClick={shareToFacebook}>Facebook</button>
+              <button className="mood-social-btn" onClick={shareToX}>X</button>
+              <button className="mood-social-btn" onClick={shareToInstagram} disabled={shareStatus === "generating"}>
+                Instagram
+              </button>
+            </div>
+            {shareStatus === "ready" && (
+              <div className="mood-status">Saved. Open Instagram and post it from your library.</div>
+            )}
 
             {shareStatus === "error" && (
               <div className="mood-status">Couldn't prepare that image right now, try again in a moment.</div>
