@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const BASE = "https://hikwbsudpv0qakso.public.blob.vercel-storage.com";
+const BASE = "https://pub-d1b3a28e884e45b98f8c52294f06eab9.r2.dev";
 
 interface Photo {
   id: number;
