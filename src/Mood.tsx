@@ -77,6 +77,7 @@ export default function Mood() {
   const [match, setMatch] = useState<Photo | null>(null);
   const [feedback, setFeedback] = useState<"yes" | "again" | null>(null);
   const [shareStatus, setShareStatus] = useState<"idle" | "generating" | "ready" | "error">("idle");
+  const [enlarged, setEnlarged] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const startQuiz = () => {
@@ -96,6 +97,7 @@ export default function Mood() {
       setMatch(result);
       setFeedback(null);
       setShareStatus("idle");
+      setEnlarged(false);
       setStage("result");
     }
   };
@@ -112,6 +114,7 @@ export default function Mood() {
     setMatch(alt);
     setFeedback(null);
     setShareStatus("idle");
+    setEnlarged(false);
   };
 
   const restart = () => {
@@ -121,6 +124,7 @@ export default function Mood() {
     setMatch(null);
     setFeedback(null);
     setShareStatus("idle");
+    setEnlarged(false);
   };
 
   // Generates a watermarked version of the matched photo on a canvas,
@@ -343,6 +347,50 @@ export default function Mood() {
           margin-bottom: 24px;
         }
 
+        .mood-result-img-clickable {
+          cursor: zoom-in;
+          transition: opacity 0.25s ease;
+        }
+        .mood-result-img-clickable:hover { opacity: 0.88; }
+
+        .mood-lightbox-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(4,4,10,0.97);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: moodFadeIn 0.25s ease;
+        }
+
+        .mood-lightbox-img {
+          max-width: 92vw;
+          max-height: 88vh;
+          object-fit: contain;
+          display: block;
+        }
+
+        .mood-lightbox-close {
+          position: fixed;
+          top: 24px; right: 32px;
+          background: none; border: none;
+          color: #888899;
+          cursor: pointer;
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          font-family: 'Didact Gothic', sans-serif;
+          transition: color 0.3s ease;
+          z-index: 1001;
+        }
+        .mood-lightbox-close:hover { color: #c8c8d4; }
+
+        @keyframes moodFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
         .mood-result-title {
           font-family: 'Bodoni Moda', serif;
           font-weight: 700;
@@ -429,7 +477,7 @@ export default function Mood() {
         .mood-social-btn:disabled { opacity: 0.5; cursor: default; }
       `}</style>
 
-      <div className="mood-root">
+      <div className="mood-root" onContextMenu={(e) => e.preventDefault()}>
         {stage === "intro" && (
           <>
             <div className="mood-title">Mood</div>
@@ -460,7 +508,15 @@ export default function Mood() {
 
         {stage === "result" && match && (
           <>
-            <img className="mood-result-img" src={match.src} alt={match.title} />
+            <img
+              className="mood-result-img mood-result-img-clickable"
+              src={match.src}
+              alt={match.title}
+              onClick={() => setEnlarged(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && setEnlarged(true)}
+            />
             <div className="mood-result-title">Your mood: {match.title}</div>
             <div className="mood-result-loc">{match.collection} &middot; {match.location}</div>
 
@@ -502,16 +558,33 @@ export default function Mood() {
             )}
 
             <canvas ref={canvasRef} style={{ display: "none" }} />
+
+            {enlarged && (
+              <div
+                className="mood-lightbox-overlay"
+                onClick={(e) => e.target === e.currentTarget && setEnlarged(false)}
+              >
+                <button className="mood-lightbox-close" onClick={() => setEnlarged(false)}>Close</button>
+                <img
+                  className="mood-lightbox-img"
+                  src={match.src}
+                  alt={match.title}
+                  onContextMenu={(e) => e.preventDefault()}
+                />
+              </div>
+            )}
           </>
         )}
 
-        <a
-          className="mood-back"
-          href="/art"
-          onClick={(e) => { e.preventDefault(); navigate("/art"); }}
-        >
-          See the full portfolio &rarr;
-        </a>
+        {stage === "result" && (
+          <a
+            className="mood-back"
+            href="/art"
+            onClick={(e) => { e.preventDefault(); navigate("/art"); }}
+          >
+            See the full portfolio &rarr;
+          </a>
+        )}
       </div>
     </>
   );
