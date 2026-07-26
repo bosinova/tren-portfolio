@@ -113,6 +113,38 @@ const TRAVEL_SECTIONS: { label: string; collection: string; meta: string }[] = [
   { label: "Ecuador", collection: "Ecuador", meta: "Quito" },
 ];
 
+// ── MOOD QUIZ TAGGING ──────────────────────
+// Default mood tags applied to every photo in a collection.
+// See mood-quiz-framework.md for the question flow these tags are matched against.
+const COLLECTION_MOODS: Record<string, string[]> = {
+  "Infrared":       ["dreamy", "quiet", "otherworldly"],
+  "Color Infrared": ["dreamy", "warm", "otherworldly"],
+  "After Dark":     ["nocturnal", "bold", "structural"],
+  "Architecture":   ["stark", "bold", "structural"],
+  "Portraits":      ["reflective", "warm", "human"],
+  "Film":           ["nostalgic", "quiet", "human"],
+  "Peru":           ["faraway", "bold", "journey"],
+  "Ecuador":        ["faraway", "dreamy", "journey"],
+};
+
+// Per-photo overrides: extra tags layered on top of the collection defaults,
+// for specific images that should surface more often regardless of collection.
+const MOOD_OVERRIDES: Record<number, string[]> = {
+  71: ["bold"],   // "Crowned" — Virgen de El Panecillo, Quito
+  48: ["warm"],   // "Elsewhere" — llama, Machu Picchu
+  49: ["warm"],   // "Double Take" — llama, Machu Picchu
+  50: ["warm"],   // "Resident" — llama, Machu Picchu
+  54: ["warm"],   // "Profile" — llama, Machu Picchu
+  62: ["warm"],   // "Unimpressed" — llama, Machu Picchu
+  60: ["warm"],   // "On the Line" — llama, Mitad del Mundo, Ecuador
+};
+
+function getPhotoMoods(photo: Photo): string[] {
+  const base = COLLECTION_MOODS[photo.collection] || [];
+  const extra = MOOD_OVERRIDES[photo.id] || [];
+  return Array.from(new Set([...base, ...extra]));
+}
+
 function PlaceholderImage({ title }: { title: string }) {
   return (
     <div style={{
