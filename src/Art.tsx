@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { photos, COLLECTIONS, TRAVEL_SECTIONS, type Photo } from "./data/photos";
+import { photos, COLLECTIONS, TRAVEL_SECTIONS, BASE, type Photo } from "./data/photos";
 
 
 function PlaceholderImage({ title }: { title: string }) {
@@ -26,6 +26,14 @@ export default function Art() {
   const [activeCollection, setActiveCollection] = useState("All");
   const [lightbox, setLightbox] = useState<Photo | null>(null);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
+  const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    fetch(`${BASE}/likes`)
+      .then((res) => (res.ok ? res.json() : {}))
+      .then((data) => setLikeCounts(data))
+      .catch((err) => console.error("Failed to load like counts:", err));
+  }, []);
 
   const isTravel = activeCollection === "Peru" || activeCollection === "Ecuador";
 
@@ -93,7 +101,12 @@ export default function Art() {
             )}
             <div className="art-caption">
               <span className="caption-title">{photo.title}</span>
-              <span className="caption-meta">{photo.location}</span>
+              <span className="caption-meta">
+                {photo.location}
+                {likeCounts[photo.id] > 0 && (
+                  <span className="caption-likes"> &middot; {likeCounts[photo.id]} {likeCounts[photo.id] === 1 ? "like" : "likes"}</span>
+                )}
+              </span>
             </div>
           </div>
         </div>
@@ -523,7 +536,10 @@ export default function Art() {
               </div>
               <div className="lightbox-meta">
                 <span className="lightbox-title">{lightbox.title}</span>
-                <span className="lightbox-loc">{lightbox.collection} &middot; {lightbox.location}</span>
+                <span className="lightbox-loc">
+                  {lightbox.collection} &middot; {lightbox.location}
+                  {likeCounts[lightbox.id] > 0 && ` \u00b7 ${likeCounts[lightbox.id]} ${likeCounts[lightbox.id] === 1 ? "like" : "likes"}`}
+                </span>
               </div>
             </div>
             <button className="lightbox-arrow next" onClick={() => navigateLightbox(1)} aria-label="Next">
